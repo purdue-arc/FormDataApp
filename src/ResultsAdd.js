@@ -128,7 +128,7 @@ class ResultsAdd extends React.Component{
             <div className="ui placeholder segment">
                 <div className="ui one column very relaxed stackable grid">
                     <div className="column">
-                        <h3>Hey</h3>
+                        <h3>RISE Organization Sign-Up Form</h3>
                         <form className="ui form" onSubmit={this.postDataHandler}>
                             {this.renderInputField("text","name", "Name:", "Name", require)}
                             {this.renderInputField("text","companyName", "Company Name:", "Company Name",require)}
