@@ -12,13 +12,31 @@ class ResultsAdd extends React.Component{
     postDataHandler = (e) => {
         e.preventDefault();
         const Data = {
-            name:this.state.name,
-            unit:this.state.unit,
-            grade:this.state.grade
+            name: this.state.name,
+            unit: this.state.unit,
+            grade: this.state.grade
         }
-        result.post('/marks.json', Data).then(response =>{
+        result.post('/marks.json', Data).then(response => {
             console.log(response);
         })
+    }
+
+    handleInputChange = (fieldName, event) => {
+        this.setState({ [fieldName]: event.target.value });
+    }
+
+    renderInputField = (type, fieldName, label, placeholder) => {
+        return (
+            <div className="field">
+                <label>{label}</label>
+                <input 
+                    type={type}
+                    placeholder={placeholder} 
+                    value={this.state[fieldName]}
+                    onChange={(e) => this.handleInputChange(fieldName, e)}
+                />
+            </div>
+        );
     }
     
     render() {
@@ -28,27 +46,9 @@ class ResultsAdd extends React.Component{
                     <div className="column">
                         <h3>Hey</h3>
                         <form className="ui form" onSubmit={this.postDataHandler}>
-                            <div className="field">
-                                <label>Name:</label>
-                                <input type="text" placeholder="Name" 
-                                value = {this.state.name}
-                                onChange ={(e)=>this.setState({name:e.target.value})}
-                                />
-                            </div>
-                            <div className="field">
-                                <label>Unit:</label>
-                                <input type="text" placeholder="Unit" 
-                                value = {this.state.unit}
-                                onChange ={(e)=>this.setState({unit:e.target.value})}
-                                />
-                            </div>
-                            <div className="field">
-                                <label>Grade:</label>
-                                <input type="text" placeholder="Grade" 
-                                value = {this.state.grade}
-                                onChange ={(e)=>this.setState({grade:e.target.value})}
-                                />
-                            </div>
+                            {this.renderInputField("text","name", "Name:", "Name")}
+                            {this.renderInputField("text","unit", "Unit:", "Unit")}
+                            {this.renderInputField("email","grade", "Grade:", "Grade")}
                             <button className="ui blue submit button">Submit</button>
                         </form>
                     </div>
