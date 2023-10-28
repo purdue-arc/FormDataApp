@@ -1,5 +1,6 @@
 import React from "react";
 import result from './results'
+import './style.css'
 
 class ResultsAdd extends React.Component{
     
