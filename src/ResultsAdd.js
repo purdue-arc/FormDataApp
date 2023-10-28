@@ -70,8 +70,19 @@ class ResultsAdd extends React.Component{
         { value: 'WY', label: 'Wyoming' }
     ];
 
+    companySizes = [
+        { value: 'micro (<10)', label: '<10 Employees' },
+        { value: 'small (10-49)', label: '10-49 Employees' },
+        { value: 'mediumSmall (50-99)', label: '50-99 Employees' },
+        { value: 'medium (100-249)', label: '100-249 Employees' },
+        { value: 'mediumLarge (250-499)', label: '250-499 Employees' },
+        { value: 'large (500-999)', label: '500-999 Employees' },
+        { value: 'xlarge (1000+)', label: '>1000 Employees' }
+    ];
+
     options = {
-        states: this.states
+        states: this.states,
+        companySizes : this.companySizes
     }
 
     postDataHandler = (e) => {
@@ -136,7 +147,7 @@ class ResultsAdd extends React.Component{
                             {this.renderInputField("text","cityLocation", "City:", "City",require)}
                             {this.renderInputField("email","contactEmail", "Email:", "Email",require)}
                             {this.renderInputField("text","phoneNumber", "Phone Number:", "Phone Number (Optional)")}
-                            {this.renderInputField("text","companySize", "Company Size:", "Company Size", require)}
+                            {this.renderMultiSelect("companySize","companySizes", "Company Size:", "Company Size", require)}
                             {this.renderInputField("text","numPeople", "Number of People Attending RISE:", "Number of People",require)}
                             {this.renderInputField("text","presentationType", "Presentation Type:", "Demo/Presentation/Poster",require)}
                             {this.renderInputField("text","comments", "Additional Comments:", "Additional Comments")}
