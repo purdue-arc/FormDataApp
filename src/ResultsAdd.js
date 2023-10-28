@@ -15,7 +15,8 @@ class ResultsAdd extends React.Component{
         phoneNumber: '',
         numPeople: '',
         presentationType: '',
-        comments: ''
+        comments: '',
+        errors: {}
     }
     states = [
         { value: 'AL', label: 'Alabama' },
@@ -85,24 +86,95 @@ class ResultsAdd extends React.Component{
         companySizes : this.companySizes
     }
 
+    validationRules = {
+        name: {
+            required: true,
+        },
+        companyName: {
+            required: true,
+        },
+        stateLocation: {
+            required: true,
+        },
+        cityLocation: {
+            required: true,
+        },
+        contactEmail: {
+            required: true,
+            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+        },
+        phoneNumber: {
+            // Can add phone number validation
+        },
+        companySize: {
+            required: true,
+        },
+        numPeople: {
+            required: true,
+        },
+        presentationType: {
+            required: true,
+        },
+        comments: {
+            // Add validation rules for comments if needed
+        }
+    }
+
+    validateField = (fieldName) => {
+        const value = this.state[fieldName];
+        const rules = this.validationRules[fieldName];
+      
+        if (rules.required && value.trim() === '') {
+            return `${fieldName} is required`;
+        }
+      
+        return null;
+    }
+
+    handleInputChange = (fieldName, event) => {
+        this.setState({ [fieldName]: event.target.value });
+    }
+
     postDataHandler = (e) => {
         e.preventDefault();
-        const Data = {
-            name: this.state.name,
-            companyName: this.state.companyName,
-            stateLocation: this.state.stateLocation,
-            cityLocation: this.state.cityLocation,
-            companySize: this.state.companySize,
-            contactEmail: this.state.contactEmail,
-            phoneNumber: this.state.phoneNumber,
-            numPeople: this.state.numPeople,
-            presentationType: this.state.presentationType,
-            comments: this.state.comments
+
+        const errors = {};
+        let hasErrors = false;
+
+        Object.keys(this.validationRules).forEach(fieldName => {
+            const error = this.validateField(fieldName);
+            if (error) {
+                errors[fieldName] = error;
+                hasErrors = true;
+            }
+        });
+
+        if (hasErrors) {
+            this.setState({ errors });
+        } else {
+            const Data = {
+                name: this.state.name,
+                companyName: this.state.companyName,
+                stateLocation: this.state.stateLocation,
+                cityLocation: this.state.cityLocation,
+                companySize: this.state.companySize,
+                contactEmail: this.state.contactEmail,
+                phoneNumber: this.state.phoneNumber,
+                numPeople: this.state.numPeople,
+                presentationType: this.state.presentationType,
+                comments: this.state.comments
+            };
+
+            result.post('/marks.json', Data).then(response => {
+                console.log(response);
+            });
         }
-        result.post('/marks.json', Data).then(response => {
-            console.log(response);
-        })
     }
+
+    handleInputChange = (fieldName, event) => {
+        this.setState({ [fieldName]: event.target.value });
+    }
+
     handleSelectChange = (fieldName, selectedOption) => {
         this.setState({ [fieldName]: selectedOption.value});
     }
@@ -117,19 +189,27 @@ class ResultsAdd extends React.Component{
             </div>
         )
     }
+    
     handleInputChange = (fieldName, event) => {
         this.setState({ [fieldName]: event.target.value });
     }
+    
     renderInputField = (type, fieldName, label, placeholder) => {
+        const error = this.state.errors[fieldName];
+        const isFocused = this.state.focusedField === fieldName;
+
         return (
             <div className="field">
                 <label>{label}</label>
-                <input
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <input
                     type={type}
                     placeholder={placeholder}
                     value={this.state[fieldName]}
                     onChange={(e) => this.handleInputChange(fieldName, e)}
-                />
+                    />
+                    {!isFocused && error && <p className="error" style={{ color: 'red' }}>{error}</p>}
+                </div>
             </div>
         );
     }
