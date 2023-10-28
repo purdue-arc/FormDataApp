@@ -17,43 +17,6 @@ class ResultsAdd extends React.Component{
         presentationType: '',
         comments: ''
     }
-
-    postDataHandler = (e) => {
-        e.preventDefault();
-        const Data = {
-            name: this.state.name,
-            companyName: this.state.companyName,
-            stateLocation: this.state.stateLocation,
-            cityLocation: this.state.cityLocation,
-            companySize: this.state.companySize,
-            contactEmail: this.state.contactEmail,
-            phoneNumber: this.state.phoneNumber,
-            numPeople: this.state.numPeople,
-            presentationType: this.state.presentationType,
-            comments: this.state.comments
-        }
-        result.post('/marks.json', Data).then(response => {
-            console.log(response);
-        })
-    }
-
-    handleInputChange = (fieldName, event) => {
-        this.setState({ [fieldName]: event.target.value });
-    }
-
-    renderInputField = (type, fieldName, label, placeholder) => {
-        return (
-            <div className="field">
-                <label>{label}</label>
-                <input
-                    type={type}
-                    placeholder={placeholder}
-                    value={this.state[fieldName]}
-                    onChange={(e) => this.handleInputChange(fieldName, e)}
-                />
-            </div>
-        );
-    }
     states = [
         { value: 'AL', label: 'Alabama' },
         { value: 'AK', label: 'Alaska' },
@@ -107,6 +70,59 @@ class ResultsAdd extends React.Component{
         { value: 'WY', label: 'Wyoming' }
     ];
 
+    options = {
+        states: this.states
+    }
+
+    postDataHandler = (e) => {
+        e.preventDefault();
+        const Data = {
+            name: this.state.name,
+            companyName: this.state.companyName,
+            stateLocation: this.state.stateLocation,
+            cityLocation: this.state.cityLocation,
+            companySize: this.state.companySize,
+            contactEmail: this.state.contactEmail,
+            phoneNumber: this.state.phoneNumber,
+            numPeople: this.state.numPeople,
+            presentationType: this.state.presentationType,
+            comments: this.state.comments
+        }
+        result.post('/marks.json', Data).then(response => {
+            console.log(response);
+        })
+    }
+    handleSelectChange = (fieldName, selectedOption) => {
+        this.setState({ [fieldName]: selectedOption.value});
+    }
+    renderMultiSelect = (fieldName,options,label,placeholder) => {
+        return (
+            <div className="field">
+                <label>{label}</label>
+                <Select
+                    options={this.options[options]}
+                    placeholder={placeholder}
+                    onChange={(selectedOption) => this.handleSelectChange(fieldName, selectedOption)}/>
+            </div>
+        )
+    }
+    handleInputChange = (fieldName, event) => {
+        this.setState({ [fieldName]: event.target.value });
+    }
+    renderInputField = (type, fieldName, label, placeholder) => {
+        return (
+            <div className="field">
+                <label>{label}</label>
+                <input
+                    type={type}
+                    placeholder={placeholder}
+                    value={this.state[fieldName]}
+                    onChange={(e) => this.handleInputChange(fieldName, e)}
+                />
+            </div>
+        );
+    }
+
     render() {
         return(
             <div className="ui placeholder segment">
@@ -116,10 +132,7 @@ class ResultsAdd extends React.Component{
                         <form className="ui form" onSubmit={this.postDataHandler}>
                             {this.renderInputField("text","name", "Name:", "Name", require)}
                             {this.renderInputField("text","companyName", "Company Name:", "Company Name",require)}
-                            <div className = "field">
-                                <label>{"State:"}</label>
-                            <Select options={this.states} placeholder={"State"}/>
-                                </div>
+                            {this.renderMultiSelect("stateLocation","states","State:","State",require)}
                             {this.renderInputField("text","cityLocation", "City:", "City",require)}
                             {this.renderInputField("email","contactEmail", "Email:", "Email",require)}
                             {this.renderInputField("text","phoneNumber", "Phone Number:", "Phone Number (Optional)")}
