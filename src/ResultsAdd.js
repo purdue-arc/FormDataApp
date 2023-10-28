@@ -19,56 +19,56 @@ class ResultsAdd extends React.Component{
         errors: {}
     }
     states = [
-        { value: 'AL', label: 'Alabama' },
-        { value: 'AK', label: 'Alaska' },
-        { value: 'AZ', label: 'Arizona' },
-        { value: 'AR', label: 'Arkansas' },
-        { value: 'CA', label: 'California' },
-        { value: 'CO', label: 'Colorado' },
-        { value: 'CT', label: 'Connecticut' },
-        { value: 'DE', label: 'Delaware' },
-        { value: 'FL', label: 'Florida' },
-        { value: 'GA', label: 'Georgia' },
-        { value: 'HI', label: 'Hawaii' },
-        { value: 'ID', label: 'Idaho' },
-        { value: 'IL', label: 'Illinois' },
-        { value: 'IN', label: 'Indiana' },
-        { value: 'IA', label: 'Iowa' },
-        { value: 'KS', label: 'Kansas' },
-        { value: 'KY', label: 'Kentucky' },
-        { value: 'LA', label: 'Louisiana' },
-        { value: 'ME', label: 'Maine' },
-        { value: 'MD', label: 'Maryland' },
-        { value: 'MA', label: 'Massachusetts' },
-        { value: 'MI', label: 'Michigan' },
-        { value: 'MN', label: 'Minnesota' },
-        { value: 'MS', label: 'Mississippi' },
-        { value: 'MO', label: 'Missouri' },
-        { value: 'MT', label: 'Montana' },
-        { value: 'NE', label: 'Nebraska' },
-        { value: 'NV', label: 'Nevada' },
-        { value: 'NH', label: 'New Hampshire' },
-        { value: 'NJ', label: 'New Jersey' },
-        { value: 'NM', label: 'New Mexico' },
-        { value: 'NY', label: 'New York' },
-        { value: 'NC', label: 'North Carolina' },
-        { value: 'ND', label: 'North Dakota' },
-        { value: 'OH', label: 'Ohio' },
-        { value: 'OK', label: 'Oklahoma' },
-        { value: 'OR', label: 'Oregon' },
-        { value: 'PA', label: 'Pennsylvania' },
-        { value: 'RI', label: 'Rhode Island' },
-        { value: 'SC', label: 'South Carolina' },
-        { value: 'SD', label: 'South Dakota' },
-        { value: 'TN', label: 'Tennessee' },
-        { value: 'TX', label: 'Texas' },
-        { value: 'UT', label: 'Utah' },
-        { value: 'VT', label: 'Vermont' },
-        { value: 'VA', label: 'Virginia' },
-        { value: 'WA', label: 'Washington' },
-        { value: 'WV', label: 'West Virginia' },
-        { value: 'WI', label: 'Wisconsin' },
-        { value: 'WY', label: 'Wyoming' }
+        { value: 'Alabama', label: 'Alabama' },
+        { value: 'Alaska', label: 'Alaska' },
+        { value: 'Arizona', label: 'Arizona' },
+        { value: 'Arkansas', label: 'Arkansas' },
+        { value: 'California', label: 'California' },
+        { value: 'Colorado', label: 'Colorado' },
+        { value: 'Connecticut', label: 'Connecticut' },
+        { value: 'Delaware', label: 'Delaware' },
+        { value: 'Florida', label: 'Florida' },
+        { value: 'Georgia', label: 'Georgia' },
+        { value: 'Hawaii', label: 'Hawaii' },
+        { value: 'Idaho', label: 'Idaho' },
+        { value: 'Illinois', label: 'Illinois' },
+        { value: 'Indiana', label: 'Indiana' },
+        { value: 'Iowa', label: 'Iowa' },
+        { value: 'Kansas', label: 'Kansas' },
+        { value: 'Kentucky', label: 'Kentucky' },
+        { value: 'Louisiana', label: 'Louisiana' },
+        { value: 'Maine', label: 'Maine' },
+        { value: 'Maryland', label: 'Maryland' },
+        { value: 'Massachusetts', label: 'Massachusetts' },
+        { value: 'Michigan', label: 'Michigan' },
+        { value: 'Minnesota', label: 'Minnesota' },
+        { value: 'Mississippi', label: 'Mississippi' },
+        { value: 'Missouri', label: 'Missouri' },
+        { value: 'Montana', label: 'Montana' },
+        { value: 'Nebraska', label: 'Nebraska' },
+        { value: 'Nevada', label: 'Nevada' },
+        { value: 'New Hampshire', label: 'New Hampshire' },
+        { value: 'New Jersey', label: 'New Jersey' },
+        { value: 'New Mexico', label: 'New Mexico' },
+        { value: 'New York', label: 'New York' },
+        { value: 'North Carolina', label: 'North Carolina' },
+        { value: 'North Dakota', label: 'North Dakota' },
+        { value: 'Ohio', label: 'Ohio' },
+        { value: 'Oklahoma', label: 'Oklahoma' },
+        { value: 'Oregon', label: 'Oregon' },
+        { value: 'Pennsylvania', label: 'Pennsylvania' },
+        { value: 'Rhode Island', label: 'Rhode Island' },
+        { value: 'South Carolina', label: 'South Carolina' },
+        { value: 'South Dakota', label: 'South Dakota' },
+        { value: 'Tennessee', label: 'Tennessee' },
+        { value: 'Texas', label: 'Texas' },
+        { value: 'Utah', label: 'Utah' },
+        { value: 'Vermont', label: 'Vermont' },
+        { value: 'Virginia', label: 'Virginia' },
+        { value: 'Washington', label: 'Washington' },
+        { value: 'West Virginia', label: 'West Virginia' },
+        { value: 'Wisconsin', label: 'Wisconsin' },
+        { value: 'Wyoming', label: 'Wyoming' }
     ];
 
     companySizes = [
@@ -171,10 +171,6 @@ class ResultsAdd extends React.Component{
         }
     }
 
-    handleInputChange = (fieldName, event) => {
-        this.setState({ [fieldName]: event.target.value });
-    }
-
     handleSelectChange = (fieldName, selectedOption) => {
         this.setState({ [fieldName]: selectedOption.value});
     }
@@ -188,10 +184,6 @@ class ResultsAdd extends React.Component{
                     onChange={(selectedOption) => this.handleSelectChange(fieldName, selectedOption)}/>
             </div>
         )
-    }
-    
-    handleInputChange = (fieldName, event) => {
-        this.setState({ [fieldName]: event.target.value });
     }
     
     renderInputField = (type, fieldName, label, placeholder) => {
