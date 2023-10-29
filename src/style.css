@@ -29,7 +29,7 @@ label {
 
 /* Input styles */
 input {
-    width: 100%;
+    width: 94%;
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -47,4 +47,10 @@ input {
 
 .ui.blue.submit.button:hover {
     background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Checkbox and agreement statement layout */
+.ui.checkbox {
+    align-items: center;
+    
 }

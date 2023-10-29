@@ -16,7 +16,8 @@ class ResultsAdd extends React.Component{
         numPeople: '',
         presentationType: '',
         comments: '',
-        errors: {}
+        errors: {},
+        agreeToTerms: false
     }
     states = [
         { value: 'Alabama', label: 'Alabama' },
@@ -205,6 +206,9 @@ class ResultsAdd extends React.Component{
             </div>
         );
     }
+    handleCheckboxChange = (event) => {
+        this.setState({ agreeToTerms: event.target.checked });
+    }
 
     render() {
         return(
@@ -223,6 +227,23 @@ class ResultsAdd extends React.Component{
                             {this.renderInputField("text","numPeople", "Number of People Attending RISE:", "Number of People",require)}
                             {this.renderInputField("text","presentationType", "Presentation Type:", "Demo/Presentation/Poster",require)}
                             {this.renderInputField("text","comments", "Additional Comments:", "Additional Comments")}
+                            <div className="field">
+                                <div className="checkbox-wrapper">
+                                    <div className="ui checkbox">
+                                        <input
+                                        type="checkbox"
+                                        checked={this.state.agreeToTerms}
+                                        onChange={this.handleCheckboxChange}
+                                        />
+                                    </div>
+                                    <div className="agreement-statement">
+                                        By checking the box, you are guaranteed to be at the RISE conference.
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="field">
+                            
+                        </div>
                             <button className="ui blue submit button">Submit</button>
                         </form>
                     </div>
