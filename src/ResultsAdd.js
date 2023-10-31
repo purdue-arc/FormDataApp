@@ -17,7 +17,7 @@ class ResultsAdd extends React.Component{
         presentationType: '',
         comments: '',
         errors: {},
-        agreeToTerms: false,
+        agreeToTerms: false
     }
     states = [
         { value: 'Alabama', label: 'Alabama' },
