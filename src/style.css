@@ -56,14 +56,9 @@ input {
 
 /* Checkbox and agreement statement layout */
 .ui.checkbox {
-
     align-items: center;
 }
 
 .agreement-statement {
     margin-left: 8px;
-}
-
-.terms{
-    background-color: black;
 }
