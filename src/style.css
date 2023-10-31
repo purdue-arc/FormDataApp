@@ -49,9 +49,19 @@ input {
     background-color: #0056b3; /* Darker blue on hover */
 }
 
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+}
+
 /* Checkbox and agreement statement layout */
 .ui.checkbox {
-    align-items: left;
+
+    align-items: center;
+}
+
+.agreement-statement {
+    margin-left: 8px;
 }
 
 .terms{

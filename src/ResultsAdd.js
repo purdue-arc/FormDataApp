@@ -19,7 +19,7 @@ class ResultsAdd extends React.Component{
         participationPoster: false,
         comments: '',
         errors: {},
-        agreeToTerms: false
+        agreeToTerms: false,
     }
     states = [
         { value: 'Alabama', label: 'Alabama' },
@@ -139,41 +139,70 @@ class ResultsAdd extends React.Component{
         this.setState({ [fieldName]: event.target.value });
     }
 
-    postDataHandler = (e) => {
-        e.preventDefault();
-
+    validateAllFields = () => {
         const errors = {};
-        let hasErrors = false;
-
         Object.keys(this.validationRules).forEach(fieldName => {
             const error = this.validateField(fieldName);
             if (error) {
                 errors[fieldName] = error;
-                hasErrors = true;
             }
         });
+        return errors;
+    };
+
+    collectFormData = () => {
+        const currentDateTime = new Date();
+        return {
+            name: this.state.name,
+            companyName: this.state.companyName,
+            stateLocation: this.state.stateLocation,
+            cityLocation: this.state.cityLocation,
+            companySize: this.state.companySize,
+            contactEmail: this.state.contactEmail,
+            phoneNumber: this.state.phoneNumber,
+            numPeople: this.state.numPeople,
+            participationDemo: this.state.participationDemo,
+            participationPresentation: this.state.participationPresentation,
+            participationPoster: this.state.participationPoster,
+            comments: this.state.comments,
+            submittedAt: currentDateTime.toISOString(), 
+            submittedUnixTime: currentDateTime.getTime() 
+        }; 
+    };
+    
+
+    postDataHandler = async (e) => {
+        e.preventDefault();
+
+        const errors = this.validateAllFields();
+        const hasErrors = Object.keys(errors).length > 0;
 
         if (hasErrors) {
             this.setState({ errors });
         } else {
-            const Data = {
-                name: this.state.name,
-                companyName: this.state.companyName,
-                stateLocation: this.state.stateLocation,
-                cityLocation: this.state.cityLocation,
-                companySize: this.state.companySize,
-                contactEmail: this.state.contactEmail,
-                phoneNumber: this.state.phoneNumber,
-                numPeople: this.state.numPeople,
-                participationDemo: this.state.participationDemo,
-                participationPresentation: this.state.participationPresentation,
-                participationPoster: this.state.participationPoster,
-                comments: this.state.comments
-            };
+            const Data = this.collectFormData();
 
-            result.post('/marks.json', Data).then(response => {
-                console.log(response);
-            });
+            try {
+                const response = await result.post(`/marks.json`, Data);
+                if (response.status === 200) {
+                    console.log("Success:", response.data);
+                }
+            } catch (error) {
+                console.error('There was an error saving the form data:', error);
+
+                if (error.response) {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+    
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    console.log(error.request);
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log('Error', error.message);
+                }
+            }
         }
     }
 
@@ -251,6 +280,10 @@ class ResultsAdd extends React.Component{
                                         checked={this.state.demo_checkbox}
                                         onChange={this.handleDemoCheckboxChange}
                                         />
+                                    </div>
+
+                                    <div className="agreement-statement">
+                                    By checking this box, you are confirming your company's commitment to participate in the RISE conference.
                                     </div>
                                     <label style={{ color: 'black'}}>
                                         Demo
