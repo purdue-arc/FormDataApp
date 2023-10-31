@@ -51,6 +51,9 @@ input {
 
 /* Checkbox and agreement statement layout */
 .ui.checkbox {
-    align-items: center;
-    
+    align-items: left;
+}
+
+.terms{
+    background-color: black;
 }
