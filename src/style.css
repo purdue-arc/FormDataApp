@@ -27,13 +27,15 @@ label {
     color: #007BFF; /* Blue text color */
 }
 
+
 /* Input styles */
 input {
-    width: 94%;
+    width: 97.8%;
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+
 
 /* Button styles */
 .ui.blue.submit.button {
