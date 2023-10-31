@@ -14,7 +14,9 @@ class ResultsAdd extends React.Component{
         contactEmail: '',
         phoneNumber: '',
         numPeople: '',
-        presentationType: '',
+        participationDemo: false,
+        participationPresentation: false,
+        participationPoster: false,
         comments: '',
         errors: {},
         agreeToTerms: false,
@@ -82,9 +84,11 @@ class ResultsAdd extends React.Component{
         { value: 'xlarge (1000+)', label: '>1000 Employees' }
     ];
 
+
     options = {
         states: this.states,
-        companySizes : this.companySizes
+        companySizes : this.companySizes,
+        presentation_type : this.presentation_type
     }
 
     validationRules = {
@@ -128,7 +132,6 @@ class ResultsAdd extends React.Component{
         if (rules.required && value.trim() === '') {
             return `${fieldName} is required`;
         }
-      
         return null;
     }
 
@@ -158,7 +161,9 @@ class ResultsAdd extends React.Component{
             contactEmail: this.state.contactEmail,
             phoneNumber: this.state.phoneNumber,
             numPeople: this.state.numPeople,
-            presentationType: this.state.presentationType,
+            participationDemo: this.state.participationDemo,
+            participationPresentation: this.state.participationPresentation,
+            participationPoster: this.state.participationPoster,
             comments: this.state.comments,
             submittedAt: currentDateTime.toISOString(), 
             submittedUnixTime: currentDateTime.getTime() 
@@ -235,8 +240,20 @@ class ResultsAdd extends React.Component{
             </div>
         );
     }
-    handleCheckboxChange = (event) => {
+    handleTermsCheckboxChange = (event) => {
         this.setState({ agreeToTerms: event.target.checked });
+    }
+
+    handleDemoCheckboxChange = (event) => {
+        this.setState({ demo_checkbox: event.target.checked });
+    }
+
+    handlePresentationCheckboxChange = (event) => {
+        this.setState({ presentation_checkbox: event.target.checked });
+    }
+
+    handlePosterCheckboxChange = (event) => {
+        this.setState({ poster_checkbox: event.target.checked });
     }
 
     render() {
@@ -254,7 +271,54 @@ class ResultsAdd extends React.Component{
                             {this.renderInputField("text","phoneNumber", "Phone Number:", "Phone Number (Optional)")}
                             {this.renderMultiSelect("companySize","companySizes", "Company Size:", "Company Size", require)}
                             {this.renderInputField("text","numPeople", "Number of People Attending RISE:", "Number of People",require)}
-                            {this.renderInputField("text","presentationType", "Presentation Type:", "Demo/Presentation/Poster",require)}
+                            <div className="field">
+                                <div className="checkbox-wrapper">
+                                    <div className="ui checkbox">
+                                        Participation Type:
+                                        <input
+                                        type="checkbox"
+                                        checked={this.state.demo_checkbox}
+                                        onChange={this.handleDemoCheckboxChange}
+                                        />
+                                    </div>
+
+                                    <div className="agreement-statement">
+                                    By checking this box, you are confirming your company's commitment to participate in the RISE conference.
+                                    </div>
+                                    <label style={{ color: 'black'}}>
+                                        Demo
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="field">
+                                <div className="checkbox-wrapper">
+                                    <div className="ui checkbox">
+                                        <input
+                                        type="checkbox"
+                                        checked={this.state.presentation_checkbox}
+                                        onChange={this.handlePresentationCheckboxChange}
+                                        />
+                                    </div>
+                                    <label style={{ color: 'black'}}>
+                                        Presentation
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="field">
+                                <div className="checkbox-wrapper">
+                                    <div className="ui checkbox">
+                                        <input
+                                        type="checkbox"
+                                        checked={this.state.poster_checkbox}
+                                        onChange={this.handlePosterCheckboxChange}
+                                        />
+                                    </div>
+                                    <label style={{ color: 'black'}}>
+                                        Poster
+                                    </label>
+                                </div>
+                            </div>
+                            
                             {this.renderInputField("text","comments", "Additional Comments:", "Additional Comments")}
                             <div className="field">
                                 <div className="checkbox-wrapper">
@@ -262,18 +326,14 @@ class ResultsAdd extends React.Component{
                                         <input
                                         type="checkbox"
                                         checked={this.state.agreeToTerms}
-                                        onChange={this.handleCheckboxChange}
+                                        onChange={this.handleTermsCheckboxChange}
                                         />
                                     </div>
-                                    <div className="agreement-statement">
-                                    By checking this box, you are confirming your company's commitment to participate in the RISE conference.
-                                    </div>
+                                    <label style={{ color: 'black'}}>
+                                        By checking the box, you are guaranteed to be at the RISE conference.
+                                    </label>
                                 </div>
                             </div>
-                            <div className="field">
-                            
-                        </div>
-                            <button className="ui blue submit button">Submit</button>
                         </form>
                     </div>
                 </div>
