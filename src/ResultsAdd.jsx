@@ -137,6 +137,15 @@ class ResultsAdd extends React.Component {
     return null;
   };
 
+  checkAgreementBox = () => {
+    const value = this.state["agreeToTerms"];
+    if (!value) {
+      return `Agreement is required`;
+    }
+
+    return null;
+  };
+
   handleInputChange = (fieldName, event) => {
     this.setState({ [fieldName]: event.target.value });
   };
@@ -173,10 +182,13 @@ class ResultsAdd extends React.Component {
     e.preventDefault();
 
     const errors = this.validateAllFields();
+    const agreement = this.checkAgreementBox();
     const hasErrors = Object.keys(errors).length > 0;
 
     if (hasErrors) {
       this.setState({ errors });
+    } else if (agreement) {
+      this.setState({ agreement });
     } else {
       const Data = this.collectFormData();
 
@@ -207,19 +219,34 @@ class ResultsAdd extends React.Component {
     this.setState({ [fieldName]: selectedOption.value });
   };
   renderMultiSelect = (fieldName, options, label, placeholder) => {
+    const customStyles = {
+      control: (base) => ({
+        ...base,
+        fontSize: '14px',
+        fontFamily: 'Arial'
+      }),
+      option: (base) => ({
+        ...base,
+        fontSize: '14px',
+        fontFamily: 'Arial'
+      })
+    };
+
     return (
-      <div className="field">
-        <label>{label}</label>
-        <Select
-          options={this.options[options]}
-          placeholder={placeholder}
-          onChange={(selectedOption) =>
-            this.handleSelectChange(fieldName, selectedOption)
-          }
-        />
-      </div>
+        <div className="field">
+          <label>{label}</label>
+          <Select
+              options={this.options[options]}
+              placeholder={placeholder}
+              onChange={(selectedOption) =>
+                  this.handleSelectChange(fieldName, selectedOption)
+              }
+              styles={customStyles}
+          />
+        </div>
     );
   };
+
 
   renderInputField = (type, fieldName, label, placeholder) => {
     const error = this.state.errors[fieldName];
