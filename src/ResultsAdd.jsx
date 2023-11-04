@@ -5,9 +5,12 @@ import Select from "react-select";
 import result from "./dependentComponents/results";
 import submissionValid from "./submissionValid"
 import "./style.css";
+import {Link, useNavigate} from "react-router-dom";
+
 
 class ResultsAdd extends React.Component {
-  state = {
+
+    state = {
     name: "",
     companyName: "",
     stateLocation: "",
@@ -330,7 +333,7 @@ class ResultsAdd extends React.Component {
                 </div>
               </div>
               <div className="field"></div>
-              <button className="ui blue submit button" onSubmit={submissionValid}>Submit</button>
+              <button className="ui blue submit button" onClick={this.success}>Submit</button>
             </form>
           </div>
         </div>

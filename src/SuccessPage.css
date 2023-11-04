@@ -1,0 +1,51 @@
+.success-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #4CAF50;
+}
+
+.success-container {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+}
+
+.success-heading {
+    font-size: 36px;
+    color: #333;
+    margin: 10px 0;
+}
+
+.success-message {
+    font-size: 18px;
+    color: #666;
+    margin: 10px 0;
+}
+
+.success-icon {
+    font-size: 60px;
+    color: #4CAF50;
+    margin: 20px 0;
+}
+
+.success-button-container {
+    margin-top: 20px;
+}
+
+.success-button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.success-button:hover {
+    background-color: #45a049;
+}
