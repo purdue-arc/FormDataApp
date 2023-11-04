@@ -216,19 +216,34 @@ class ResultsAdd extends React.Component {
     this.setState({ [fieldName]: selectedOption.value });
   };
   renderMultiSelect = (fieldName, options, label, placeholder) => {
+    const customStyles = {
+      control: (base) => ({
+        ...base,
+        fontSize: '14px',
+        fontFamily: 'Arial'
+      }),
+      option: (base) => ({
+        ...base,
+        fontSize: '14px',
+        fontFamily: 'Arial'
+      })
+    };
+
     return (
-      <div className="field">
-        <label>{label}</label>
-        <Select
-          options={this.options[options]}
-          placeholder={placeholder}
-          onChange={(selectedOption) =>
-            this.handleSelectChange(fieldName, selectedOption)
-          }
-        />
-      </div>
+        <div className="field">
+          <label>{label}</label>
+          <Select
+              options={this.options[options]}
+              placeholder={placeholder}
+              onChange={(selectedOption) =>
+                  this.handleSelectChange(fieldName, selectedOption)
+              }
+              styles={customStyles}
+          />
+        </div>
     );
   };
+
 
   renderInputField = (type, fieldName, label, placeholder) => {
     const error = this.state.errors[fieldName];
