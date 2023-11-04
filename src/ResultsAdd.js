@@ -2,7 +2,7 @@ import emailjs from "@emailjs/browser";
 import { EmailJSResponseStatus } from "@emailjs/browser/es";
 import { default as React, useRef } from "react";
 import Select from "react-select";
-import result from "./results";
+import result from "./dependentComponents/results";
 import "./style.css";
 
 class ResultsAdd extends React.Component {
@@ -233,7 +233,7 @@ class ResultsAdd extends React.Component {
           />
           {!isFocused && error && (
             <p className="error" style={{ color: "red" }}>
-              {error}
+              {placeholder + " is required!"}
             </p>
           )}
         </div>
