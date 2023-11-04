@@ -133,6 +133,15 @@ class ResultsAdd extends React.Component {
     return null;
   };
 
+  checkAgreementBox = () => {
+    const value = this.state["agreeToTerms"];
+    if (!value) {
+      return `Agreement is required`;
+    }
+
+    return null;
+  };
+
   handleInputChange = (fieldName, event) => {
     this.setState({ [fieldName]: event.target.value });
   };
@@ -169,10 +178,13 @@ class ResultsAdd extends React.Component {
     e.preventDefault();
 
     const errors = this.validateAllFields();
+    const agreement = this.checkAgreementBox();
     const hasErrors = Object.keys(errors).length > 0;
 
     if (hasErrors) {
       this.setState({ errors });
+    } else if (agreement) {
+      this.setState({ agreement });
     } else {
       const Data = this.collectFormData();
 
