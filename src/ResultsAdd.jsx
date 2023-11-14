@@ -70,12 +70,26 @@ class ResultsAdd extends React.Component {
     },
   };
 
+  fieldNames = {
+    companyName: "Company Name",
+    companySize: "Company Size",
+    companyAddress: "Company Address",
+    contactName: "Contact Name",
+    contactEmail: "Contact Email",
+    contactPhoneNumber: "Contact Phone Number",
+    numPeople: "Number of Company Representatives at RISE",
+    participationType: "Participation Type",
+    comments: "Comments",
+  };
+
   validateField = (fieldName) => {
     const value = this.state[fieldName];
     const rules = this.validationRules[fieldName];
 
+    const readableName = this.fieldNames[fieldName] || fieldName;
+
     if (rules.required && value.trim() === "") {
-      return `${fieldName} is required`;
+      return `${readableName} is required`;
     }
 
     return null;
