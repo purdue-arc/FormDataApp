@@ -3,79 +3,27 @@ import { EmailJSResponseStatus } from "@emailjs/browser/es";
 import { default as React, useRef } from "react";
 import Select from "react-select";
 import result from "./dependentComponents/results";
-import submissionValid from "./submissionValid"
+import submissionValid from "./submissionValid";
 import "./style.css";
-import {Link, useNavigate} from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 
 class ResultsAdd extends React.Component {
-
-    state = {
-    name: "",
+  state = {
     companyName: "",
-    stateLocation: "",
-    cityLocation: "",
     companySize: "",
+    companySizeKey: 0,
+    companyAddress: "",
+    contactName: "",
     contactEmail: "",
-    phoneNumber: "",
+    contactPhoneNumber: "",
     numPeople: "",
-    presentationType: "",
+    participationType: "",
     comments: "",
     errors: {},
     agreeToTerms: false,
+    submissionSuccess: false,
+    agreementError: null,
   };
-  states = [
-    { value: "Alabama", label: "Alabama" },
-    { value: "Alaska", label: "Alaska" },
-    { value: "Arizona", label: "Arizona" },
-    { value: "Arkansas", label: "Arkansas" },
-    { value: "California", label: "California" },
-    { value: "Colorado", label: "Colorado" },
-    { value: "Connecticut", label: "Connecticut" },
-    { value: "Delaware", label: "Delaware" },
-    { value: "Florida", label: "Florida" },
-    { value: "Georgia", label: "Georgia" },
-    { value: "Hawaii", label: "Hawaii" },
-    { value: "Idaho", label: "Idaho" },
-    { value: "Illinois", label: "Illinois" },
-    { value: "Indiana", label: "Indiana" },
-    { value: "Iowa", label: "Iowa" },
-    { value: "Kansas", label: "Kansas" },
-    { value: "Kentucky", label: "Kentucky" },
-    { value: "Louisiana", label: "Louisiana" },
-    { value: "Maine", label: "Maine" },
-    { value: "Maryland", label: "Maryland" },
-    { value: "Massachusetts", label: "Massachusetts" },
-    { value: "Michigan", label: "Michigan" },
-    { value: "Minnesota", label: "Minnesota" },
-    { value: "Mississippi", label: "Mississippi" },
-    { value: "Missouri", label: "Missouri" },
-    { value: "Montana", label: "Montana" },
-    { value: "Nebraska", label: "Nebraska" },
-    { value: "Nevada", label: "Nevada" },
-    { value: "New Hampshire", label: "New Hampshire" },
-    { value: "New Jersey", label: "New Jersey" },
-    { value: "New Mexico", label: "New Mexico" },
-    { value: "New York", label: "New York" },
-    { value: "North Carolina", label: "North Carolina" },
-    { value: "North Dakota", label: "North Dakota" },
-    { value: "Ohio", label: "Ohio" },
-    { value: "Oklahoma", label: "Oklahoma" },
-    { value: "Oregon", label: "Oregon" },
-    { value: "Pennsylvania", label: "Pennsylvania" },
-    { value: "Rhode Island", label: "Rhode Island" },
-    { value: "South Carolina", label: "South Carolina" },
-    { value: "South Dakota", label: "South Dakota" },
-    { value: "Tennessee", label: "Tennessee" },
-    { value: "Texas", label: "Texas" },
-    { value: "Utah", label: "Utah" },
-    { value: "Vermont", label: "Vermont" },
-    { value: "Virginia", label: "Virginia" },
-    { value: "Washington", label: "Washington" },
-    { value: "West Virginia", label: "West Virginia" },
-    { value: "Wisconsin", label: "Wisconsin" },
-    { value: "Wyoming", label: "Wyoming" },
-  ];
 
   companySizes = [
     { value: "micro (<10)", label: "<10 Employees" },
@@ -88,37 +36,33 @@ class ResultsAdd extends React.Component {
   ];
 
   options = {
-    states: this.states,
     companySizes: this.companySizes,
   };
 
   validationRules = {
-    name: {
-      required: true,
-    },
     companyName: {
       required: true,
     },
-    stateLocation: {
+    companyAddress: {
       required: true,
     },
-    cityLocation: {
+    companySize: {
+      required: true,
+    },
+    contactName: {
       required: true,
     },
     contactEmail: {
       required: true,
       pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
     },
-    phoneNumber: {
+    contactPhoneNumber: {
       // Can add phone number validation
-    },
-    companySize: {
-      required: true,
     },
     numPeople: {
       required: true,
     },
-    presentationType: {
+    participationType: {
       required: true,
     },
     comments: {
@@ -137,17 +81,21 @@ class ResultsAdd extends React.Component {
     return null;
   };
 
-  checkAgreementBox = () => {
-    const value = this.state["agreeToTerms"];
-    if (!value) {
-      return `Agreement is required`;
-    }
-
-    return null;
-  };
-
   handleInputChange = (fieldName, event) => {
-    this.setState({ [fieldName]: event.target.value });
+    const newValue = event.target.value;
+    this.setState((prevState) => {
+      const updatedErrors = { ...prevState.errors };
+      const fieldError = this.validateField(fieldName, newValue);
+
+      if (!fieldError) {
+        delete updatedErrors[fieldName];
+      }
+
+      return {
+        [fieldName]: newValue,
+        errors: updatedErrors,
+      };
+    });
   };
 
   validateAllFields = () => {
@@ -164,31 +112,52 @@ class ResultsAdd extends React.Component {
   collectFormData = () => {
     const currentDateTime = new Date();
     return {
-      name: this.state.name,
       companyName: this.state.companyName,
-      stateLocation: this.state.stateLocation,
-      cityLocation: this.state.cityLocation,
       companySize: this.state.companySize,
+      contactName: this.state.contactName,
       contactEmail: this.state.contactEmail,
-      phoneNumber: this.state.phoneNumber,
+      contactPhoneNumber: this.state.contactPhoneNumber,
       numPeople: this.state.numPeople,
-      presentationType: this.state.presentationType,
+      participationType: this.state.participationType,
       comments: this.state.comments,
       submittedAt: currentDateTime.toISOString(),
       submittedUnixTime: currentDateTime.getTime(),
     };
   };
+
+  resetForm = () => {
+    this.setState({
+      companyName: "",
+      companySize: "",
+      companyAddress: "",
+      contactName: "",
+      contactEmail: "",
+      contactPhoneNumber: "",
+      numPeople: "",
+      participationType: "",
+      comments: "",
+      errors: {},
+      agreeToTerms: false,
+      submissionSuccess: false,
+      companySizeKey: this.state.companySizeKey + 1,
+    });
+  };
+
   postDataHandler = async (e) => {
     e.preventDefault();
 
+    this.setState({ submissionSuccess: false, agreementError: null });
+
     const errors = this.validateAllFields();
-    const agreement = this.checkAgreementBox();
     const hasErrors = Object.keys(errors).length > 0;
+    const agreementError = !this.state.agreeToTerms
+      ? "You must agree to the terms to proceed."
+      : null;
 
     if (hasErrors) {
       this.setState({ errors });
-    } else if (agreement) {
-      this.setState({ agreement });
+    } else if (agreementError) {
+      this.setState({ agreementError });
     } else {
       const Data = this.collectFormData();
 
@@ -197,6 +166,8 @@ class ResultsAdd extends React.Component {
         if (response.status === 200) {
           console.log("Success:", response.data);
         }
+        this.resetForm();
+        this.setState({ submissionSuccess: true });
       } catch (error) {
         console.error("There was an error saving the form data:", error);
 
@@ -219,38 +190,42 @@ class ResultsAdd extends React.Component {
     this.setState({ [fieldName]: selectedOption.value });
   };
   renderMultiSelect = (fieldName, options, label, placeholder) => {
+    const error = this.state.errors[fieldName];
     const customStyles = {
       control: (base) => ({
         ...base,
-        fontSize: '14px',
-        fontFamily: 'Arial'
+        fontSize: "14px",
+        fontFamily: "Arial",
       }),
       option: (base) => ({
         ...base,
-        fontSize: '14px',
-        fontFamily: 'Arial'
-      })
+        fontSize: "14px",
+        fontFamily: "Arial",
+      }),
     };
 
     return (
-        <div className="field">
-          <label>{label}</label>
-          <Select
-              options={this.options[options]}
-              placeholder={placeholder}
-              onChange={(selectedOption) =>
-                  this.handleSelectChange(fieldName, selectedOption)
-              }
-              styles={customStyles}
-          />
-        </div>
+      <div className="field">
+        <label>{label}</label>
+        <Select
+          options={this.options[options]}
+          placeholder={placeholder}
+          onChange={(selectedOption) =>
+            this.handleSelectChange(fieldName, selectedOption)
+          }
+          styles={customStyles}
+        />
+        {error && (
+          <p className="error" style={{ color: "red" }}>
+            {error}
+          </p>
+        )}
+      </div>
     );
   };
 
-
   renderInputField = (type, fieldName, label, placeholder) => {
     const error = this.state.errors[fieldName];
-    const isFocused = this.state.focusedField === fieldName;
 
     return (
       <div className="field">
@@ -262,15 +237,16 @@ class ResultsAdd extends React.Component {
             value={this.state[fieldName]}
             onChange={(e) => this.handleInputChange(fieldName, e)}
           />
-          {!isFocused && error && (
+          {error && (
             <p className="error" style={{ color: "red" }}>
-              {placeholder + " is required!"}
+              {error}
             </p>
           )}
         </div>
       </div>
     );
   };
+
   handleCheckboxChange = (event) => {
     this.setState({ agreeToTerms: event.target.checked });
   };
@@ -282,61 +258,55 @@ class ResultsAdd extends React.Component {
           <div className="column">
             <h3>RISE Organization Sign-Up Form</h3>
             <form className="ui form" onSubmit={this.postDataHandler}>
-              {this.renderInputField("text", "name", "Name:", "Name", require)}
               {this.renderInputField(
                 "text",
                 "companyName",
                 "Company Name:",
-                "Company Name",
-                require
+                "Company Name"
               )}
-              {this.renderMultiSelect(
-                "stateLocation",
-                "states",
-                "State:",
-                "State",
-                require
+              <div className="field" key={this.state.companySizeKey}>
+                {this.renderMultiSelect(
+                  "companySize",
+                  "companySizes",
+                  "Company Size:",
+                  "Select Company Size"
+                )}
+              </div>
+              {this.renderInputField(
+                "text",
+                "companyAddress",
+                "Company Address:",
+                "Company Address"
               )}
               {this.renderInputField(
                 "text",
-                "cityLocation",
-                "City:",
-                "City",
-                require
+                "contactName",
+                "Contact Name:",
+                "Contact Name"
               )}
               {this.renderInputField(
                 "email",
                 "contactEmail",
-                "Email:",
-                "Email",
-                require
+                "Contact Email:",
+                "Contact Email"
               )}
               {this.renderInputField(
                 "text",
-                "phoneNumber",
-                "Phone Number:",
-                "Phone Number (Optional)"
-              )}
-              {this.renderMultiSelect(
-                "companySize",
-                "companySizes",
-                "Company Size:",
-                "Company Size",
-                require
+                "contactPhoneNumber",
+                "Contact Phone Number:",
+                "Contact Phone Number (Optional)"
               )}
               {this.renderInputField(
                 "text",
                 "numPeople",
-                "Number of People Attending RISE:",
-                "Number of People",
-                require
+                "Number of Company Representatives at RISE:",
+                "Number of Representatives"
               )}
               {this.renderInputField(
                 "text",
-                "presentationType",
-                "Presentation Type:",
-                "Demo/Presentation/Poster",
-                require
+                "participationType",
+                "Participation Type:",
+                "Demo/Presentation/Poster"
               )}
               {this.renderInputField(
                 "text",
@@ -344,6 +314,7 @@ class ResultsAdd extends React.Component {
                 "Additional Comments:",
                 "Additional Comments"
               )}
+
               <div className="field">
                 <div className="checkbox-wrapper">
                   <div className="ui checkbox">
@@ -359,8 +330,25 @@ class ResultsAdd extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="field"></div>
-              <button className="ui blue submit button" onClick={this.success}>Submit</button>
+
+              <div className="field">
+                <button className="ui blue submit button" type="submit">
+                  Submit
+                </button>
+              </div>
+
+              <div className="field">
+                {this.state.submissionSuccess && (
+                  <div className="success-message">
+                    Your form has been successfully submitted!
+                  </div>
+                )}
+                {this.state.agreementError && (
+                  <p className="error" style={{ color: "red" }}>
+                    {this.state.agreementError}
+                  </p>
+                )}
+              </div>
             </form>
           </div>
         </div>
