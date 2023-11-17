@@ -208,12 +208,12 @@ class ResultsAdd extends React.Component {
     const customStyles = {
       control: (base) => ({
         ...base,
-        fontSize: "14px",
+        fontSize: "12px",
         fontFamily: "Arial",
       }),
       option: (base) => ({
         ...base,
-        fontSize: "14px",
+        fontSize: "12px",
         fontFamily: "Arial",
       }),
     };
@@ -354,7 +354,8 @@ class ResultsAdd extends React.Component {
               <div className="field">
                 {this.state.submissionSuccess && (
                   <div className="success-message">
-                    Your form has been successfully submitted!
+                    Your form has been successfully submitted! If any questions
+                    or concerns, you can contact us here: vmuthuku@purdue.edu
                   </div>
                 )}
                 {this.state.agreementError && (
