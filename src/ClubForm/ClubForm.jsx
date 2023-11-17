@@ -3,10 +3,10 @@ import { EmailJSResponseStatus } from "@emailjs/browser/es";
 import { default as React, useRef } from "react";
 import Select from "react-select";
 import result from "../dependentComponents/results";
-import "./companyStyle.css";
+import "./clubStyle.css";
 import { Link, useNavigate } from "react-router-dom";
 
-class CompanyForm extends React.Component {
+class ClubForm extends React.Component {
   state = {
     companyName: "",
     companySize: "",
@@ -370,4 +370,4 @@ class CompanyForm extends React.Component {
   }
 }
 
-export default CompanyForm;
+export default ClubForm;

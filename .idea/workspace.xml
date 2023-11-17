@@ -6,6 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="20c62084-0d88-435b-a48f-2bb0c5a4d53f" name="Changes" comment="State dropdown saves to variable">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ContactUs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ResultsAdd.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompanyForm/CompanyForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompanyForm/companyStyle.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,6 +21,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="JavaScript File" />
         <option value="CSS File" />
       </list>
     </option>
@@ -37,7 +44,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/bedga/WebstormProjects/arclanding&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/bedga/WebstormProjects/arclanding/website2.0&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -49,13 +56,27 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\bedga\WebstormProjects\FormDataApp\src\LabForm" />
+      <recent name="C:\Users\bedga\WebstormProjects\FormDataApp\src\ClubForm" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\bedga\WebstormProjects\FormDataApp\src" />
+      <recent name="C:\Users\bedga\WebstormProjects\FormDataApp\src\CompanyForm" />
+      <recent name="C:\Users\bedga\WebstormProjects\FormDataApp\src\dependentComponents" />
       <recent name="C:\Users\bedga\WebstormProjects\FormDataApp\src\formPosting" />
       <recent name="C:\Users\bedga\WebstormProjects\FormDataApp\assets" />
-      <recent name="C:\Users\bedga\WebstormProjects\FormDataApp" />
-      <recent name="C:\Users\bedga\WebstormProjects\FormDataApp\src\registration" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="submissionValid.jsx" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/submissionValid.jsx" working-dir="$PROJECT_DIR$/src">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.submissionValid.jsx" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -68,6 +89,8 @@
       <workItem from="1698360769145" duration="3206000" />
       <workItem from="1698522089314" duration="1458000" />
       <workItem from="1699109029477" duration="1029000" />
+      <workItem from="1699126411952" duration="6114000" />
+      <workItem from="1700177735975" duration="4226000" />
     </task>
     <task id="LOCAL-00001" summary="Added Dropdown for state selection">
       <option name="closed" value="true" />

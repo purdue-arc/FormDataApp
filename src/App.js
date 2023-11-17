@@ -1,15 +1,19 @@
 import React from "react";
-import ContactUs from "./ContactUs";
-import ResultsAdd from "./ResultsAdd";
-import submission from "./submissionValid"
+import CompanyForm from "./CompanyForm/CompanyForm";
+import ClubForm from "./ClubForm/ClubForm"
+import LabForm from "./LabForm/LabForm"
+import Navbar from "./Nav";
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 
 function App() {
   return (
      <BrowserRouter>
+         <Navbar/>
         <div>
             <Routes>
-                <Route path="/" element={ <ResultsAdd/>}></Route>
+                <Route path="/" element={ <CompanyForm/>}></Route>
+                <Route path="/club" element={ <ClubForm/> }></Route>
+                <Route path="/lab" element={ <LabForm/> }></Route>
                 <Route path="/submit" element={ <submission/>}></Route>
             </Routes>
         </div>
