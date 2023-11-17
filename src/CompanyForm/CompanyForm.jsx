@@ -3,7 +3,6 @@ import { EmailJSResponseStatus } from "@emailjs/browser/es";
 import { default as React, useRef } from "react";
 import Select from "react-select";
 import result from "./dependentComponents/results";
-import submissionValid from "./submissionValid";
 import "./style.css";
 import { Link, useNavigate } from "react-router-dom";
 
