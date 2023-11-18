@@ -3,15 +3,15 @@ import { EmailJSResponseStatus } from "@emailjs/browser/es";
 import { default as React, useRef } from "react";
 import Select from "react-select";
 import result from "../dependentComponents/results";
-import "./clubStyle.css";
+import "../formStyle.css"
 import { Link, useNavigate } from "react-router-dom";
 
 class ClubForm extends React.Component {
   state = {
-    companyName: "",
-    companySize: "",
-    companySizeKey: 0,
-    companyAddress: "",
+    ClubName: "",
+    ClubSize: "",
+    ClubSizeKey: 0,
+    ClubAddress: "",
     contactName: "",
     contactEmail: "",
     contactPhoneNumber: "",
@@ -24,7 +24,7 @@ class ClubForm extends React.Component {
     agreementError: null,
   };
 
-  companySizes = [
+  ClubSizes = [
     { value: "micro (<10)", label: "<10 Employees" },
     { value: "small (10-49)", label: "10-49 Employees" },
     { value: "mediumSmall (50-99)", label: "50-99 Employees" },
@@ -35,17 +35,17 @@ class ClubForm extends React.Component {
   ];
 
   options = {
-    companySizes: this.companySizes,
+    ClubSizes: this.ClubSizes,
   };
 
   validationRules = {
-    companyName: {
+    ClubName: {
       required: true,
     },
-    companyAddress: {
+    ClubAddress: {
       required: true,
     },
-    companySize: {
+    ClubSize: {
       required: true,
     },
     contactName: {
@@ -70,13 +70,13 @@ class ClubForm extends React.Component {
   };
 
   fieldNames = {
-    companyName: "Company Name",
-    companySize: "Company Size",
-    companyAddress: "Company Address",
+    ClubName: "Club Name",
+    ClubSize: "Club Size",
+    ClubAddress: "Club Address",
     contactName: "Contact Name",
     contactEmail: "Contact Email",
     contactPhoneNumber: "Contact Phone Number",
-    numPeople: "Number of Company Representatives at RISE",
+    numPeople: "Number of Club Representatives at RISE",
     participationType: "Participation Type",
     comments: "Comments",
   };
@@ -125,8 +125,8 @@ class ClubForm extends React.Component {
   collectFormData = () => {
     const currentDateTime = new Date();
     return {
-      companyName: this.state.companyName,
-      companySize: this.state.companySize,
+      ClubName: this.state.ClubName,
+      ClubSize: this.state.ClubSize,
       contactName: this.state.contactName,
       contactEmail: this.state.contactEmail,
       contactPhoneNumber: this.state.contactPhoneNumber,
@@ -140,9 +140,9 @@ class ClubForm extends React.Component {
 
   resetForm = () => {
     this.setState({
-      companyName: "",
-      companySize: "",
-      companyAddress: "",
+      ClubName: "",
+      ClubSize: "",
+      ClubAddress: "",
       contactName: "",
       contactEmail: "",
       contactPhoneNumber: "",
@@ -152,7 +152,7 @@ class ClubForm extends React.Component {
       errors: {},
       agreeToTerms: false,
       submissionSuccess: false,
-      companySizeKey: this.state.companySizeKey + 1,
+      ClubSizeKey: this.state.ClubSizeKey + 1,
     });
   };
 
@@ -269,27 +269,27 @@ class ClubForm extends React.Component {
       <div className="ui placeholder segment">
         <div className="ui one column very relaxed stackable grid">
           <div className="column">
-            <h3>RISE Organization Sign-Up Form</h3>
+            <h3>RISE Purdue Club Sign-Up Form</h3>
             <form className="ui form" onSubmit={this.postDataHandler}>
               {this.renderInputField(
                 "text",
-                "companyName",
-                "Company Name:",
-                "Company Name"
+                "ClubName",
+                "Club Name:",
+                "Club Name"
               )}
-              <div className="field" key={this.state.companySizeKey}>
+              <div className="field" key={this.state.ClubSizeKey}>
                 {this.renderMultiSelect(
-                  "companySize",
-                  "companySizes",
-                  "Company Size:",
-                  "Select Company Size"
+                  "ClubSize",
+                  "ClubSizes",
+                  "Club Size:",
+                  "Select Club Size"
                 )}
               </div>
               {this.renderInputField(
                 "text",
-                "companyAddress",
-                "Company Address:",
-                "Company Address"
+                "ClubAddress",
+                "Club Address:",
+                "Club Address"
               )}
               {this.renderInputField(
                 "text",
@@ -312,7 +312,7 @@ class ClubForm extends React.Component {
               {this.renderInputField(
                 "text",
                 "numPeople",
-                "Number of Company Representatives at RISE:",
+                "Number of Club Representatives at RISE:",
                 "Number of Representatives"
               )}
               {this.renderInputField(
@@ -338,7 +338,7 @@ class ClubForm extends React.Component {
                     />
                   </div>
                   <div className="agreement-statement">
-                    By checking this box, you are confirming your company's
+                    By checking this box, you are confirming your Club's
                     commitment to participate in the RISE conference.
                   </div>
                 </div>

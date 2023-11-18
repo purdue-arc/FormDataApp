@@ -3,7 +3,7 @@ import { EmailJSResponseStatus } from "@emailjs/browser/es";
 import { default as React, useRef } from "react";
 import Select from "react-select";
 import result from "../dependentComponents/results";
-import "./companyStyle.css";
+import "../formStyle.css"
 import { Link, useNavigate } from "react-router-dom";
 
 class CompanyForm extends React.Component {
@@ -269,7 +269,7 @@ class CompanyForm extends React.Component {
       <div className="ui placeholder segment">
         <div className="ui one column very relaxed stackable grid">
           <div className="column">
-            <h3>RISE Organization Sign-Up Form</h3>
+            <h3>RISE Company Sign-Up Form</h3>
             <form className="ui form" onSubmit={this.postDataHandler}>
               {this.renderInputField(
                 "text",

@@ -3,15 +3,15 @@ import { EmailJSResponseStatus } from "@emailjs/browser/es";
 import { default as React, useRef } from "react";
 import Select from "react-select";
 import result from "../dependentComponents/results";
-import "./labStyle.css";
+import "../formStyle.css"
 import { Link, useNavigate } from "react-router-dom";
 
 class LabForm extends React.Component {
   state = {
-    companyName: "",
-    companySize: "",
-    companySizeKey: 0,
-    companyAddress: "",
+    LabName: "",
+    LabSize: "",
+    LabSizeKey: 0,
+    LabAddress: "",
     contactName: "",
     contactEmail: "",
     contactPhoneNumber: "",
@@ -24,7 +24,7 @@ class LabForm extends React.Component {
     agreementError: null,
   };
 
-  companySizes = [
+  LabSizes = [
     { value: "micro (<10)", label: "<10 Employees" },
     { value: "small (10-49)", label: "10-49 Employees" },
     { value: "mediumSmall (50-99)", label: "50-99 Employees" },
@@ -35,17 +35,17 @@ class LabForm extends React.Component {
   ];
 
   options = {
-    companySizes: this.companySizes,
+    LabSizes: this.LabSizes,
   };
 
   validationRules = {
-    companyName: {
+    LabName: {
       required: true,
     },
-    companyAddress: {
+    LabAddress: {
       required: true,
     },
-    companySize: {
+    LabSize: {
       required: true,
     },
     contactName: {
@@ -70,13 +70,13 @@ class LabForm extends React.Component {
   };
 
   fieldNames = {
-    companyName: "Company Name",
-    companySize: "Company Size",
-    companyAddress: "Company Address",
+    LabName: "Lab Name",
+    LabSize: "Lab Size",
+    LabAddress: "Lab Address",
     contactName: "Contact Name",
     contactEmail: "Contact Email",
     contactPhoneNumber: "Contact Phone Number",
-    numPeople: "Number of Company Representatives at RISE",
+    numPeople: "Number of Lab Representatives at RISE",
     participationType: "Participation Type",
     comments: "Comments",
   };
@@ -125,8 +125,8 @@ class LabForm extends React.Component {
   collectFormData = () => {
     const currentDateTime = new Date();
     return {
-      companyName: this.state.companyName,
-      companySize: this.state.companySize,
+      LabName: this.state.LabName,
+      LabSize: this.state.LabSize,
       contactName: this.state.contactName,
       contactEmail: this.state.contactEmail,
       contactPhoneNumber: this.state.contactPhoneNumber,
@@ -140,9 +140,9 @@ class LabForm extends React.Component {
 
   resetForm = () => {
     this.setState({
-      companyName: "",
-      companySize: "",
-      companyAddress: "",
+      LabName: "",
+      LabSize: "",
+      LabAddress: "",
       contactName: "",
       contactEmail: "",
       contactPhoneNumber: "",
@@ -152,7 +152,7 @@ class LabForm extends React.Component {
       errors: {},
       agreeToTerms: false,
       submissionSuccess: false,
-      companySizeKey: this.state.companySizeKey + 1,
+      LabSizeKey: this.state.LabSizeKey + 1,
     });
   };
 
@@ -269,27 +269,27 @@ class LabForm extends React.Component {
       <div className="ui placeholder segment">
         <div className="ui one column very relaxed stackable grid">
           <div className="column">
-            <h3>RISE Organization Sign-Up Form</h3>
+            <h3>RISE Laboratory Sign-Up Form</h3>
             <form className="ui form" onSubmit={this.postDataHandler}>
               {this.renderInputField(
                 "text",
-                "companyName",
-                "Company Name:",
-                "Company Name"
+                "LabName",
+                "Lab Name:",
+                "Lab Name"
               )}
-              <div className="field" key={this.state.companySizeKey}>
+              <div className="field" key={this.state.LabSizeKey}>
                 {this.renderMultiSelect(
-                  "companySize",
-                  "companySizes",
-                  "Company Size:",
-                  "Select Company Size"
+                  "LabSize",
+                  "LabSizes",
+                  "Lab Size:",
+                  "Select Lab Size"
                 )}
               </div>
               {this.renderInputField(
                 "text",
-                "companyAddress",
-                "Company Address:",
-                "Company Address"
+                "LabAddress",
+                "Lab Address:",
+                "Lab Address"
               )}
               {this.renderInputField(
                 "text",
@@ -312,7 +312,7 @@ class LabForm extends React.Component {
               {this.renderInputField(
                 "text",
                 "numPeople",
-                "Number of Company Representatives at RISE:",
+                "Number of Lab Representatives at RISE:",
                 "Number of Representatives"
               )}
               {this.renderInputField(
@@ -338,7 +338,7 @@ class LabForm extends React.Component {
                     />
                   </div>
                   <div className="agreement-statement">
-                    By checking this box, you are confirming your company's
+                    By checking this box, you are confirming your Lab's
                     commitment to participate in the RISE conference.
                   </div>
                 </div>
