@@ -5,6 +5,7 @@ import Select from "react-select";
 import result from "../dependentComponents/results";
 import "../formStyle.css"
 import { Link, useNavigate } from "react-router-dom";
+import submissionValid from "../submissionValid";
 
 class CompanyForm extends React.Component {
   state = {
@@ -171,7 +172,7 @@ class CompanyForm extends React.Component {
       this.setState({ errors });
     } else if (agreementError) {
       this.setState({ agreementError });
-    } else {
+    } else if(!this.state.submissionSuccess){
       const Data = this.collectFormData();
 
       try {
