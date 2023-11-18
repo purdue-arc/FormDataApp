@@ -14,7 +14,6 @@ function App() {
                 <Route path="/" element={ <CompanyForm/>}></Route>
                 <Route path="/club" element={ <ClubForm/> }></Route>
                 <Route path="/lab" element={ <LabForm/> }></Route>
-                <Route path="/submit" element={ <submission/>}></Route>
             </Routes>
         </div>
      </BrowserRouter>
