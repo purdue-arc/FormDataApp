@@ -10,6 +10,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      {/* <ContactUs></ContactUs> */}
       <div>
         <Routes>
           <Route path="/" element={<CompanyForm />}></Route>
