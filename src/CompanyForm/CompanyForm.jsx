@@ -152,7 +152,7 @@ class CompanyForm extends React.Component {
       comments: "",
       errors: {},
       agreeToTerms: false,
-      submissionSuccess: false,
+      submissionSuccess: true,
       companySizeKey: this.state.companySizeKey + 1,
     });
   };
@@ -160,7 +160,7 @@ class CompanyForm extends React.Component {
   postDataHandler = async (e) => {
     e.preventDefault();
 
-    this.setState({ submissionSuccess: false, agreementError: null });
+    this.setState({ agreementError: null });
 
     const errors = this.validateAllFields();
     const hasErrors = Object.keys(errors).length > 0;

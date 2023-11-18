@@ -151,7 +151,7 @@ class ClubForm extends React.Component {
       comments: "",
       errors: {},
       agreeToTerms: false,
-      submissionSuccess: false,
+      submissionSuccess: true,
       ClubSizeKey: this.state.ClubSizeKey + 1,
     });
   };
@@ -159,7 +159,7 @@ class ClubForm extends React.Component {
   postDataHandler = async (e) => {
     e.preventDefault();
 
-    this.setState({ submissionSuccess: false, agreementError: null });
+    this.setState({ agreementError: null });
 
     const errors = this.validateAllFields();
     const hasErrors = Object.keys(errors).length > 0;
