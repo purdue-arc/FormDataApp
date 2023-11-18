@@ -25,13 +25,13 @@ class ClubForm extends React.Component {
   };
 
   ClubSizes = [
-    { value: "micro (<10)", label: "<10 Employees" },
-    { value: "small (10-49)", label: "10-49 Employees" },
-    { value: "mediumSmall (50-99)", label: "50-99 Employees" },
-    { value: "medium (100-249)", label: "100-249 Employees" },
-    { value: "mediumLarge (250-499)", label: "250-499 Employees" },
-    { value: "large (500-999)", label: "500-999 Employees" },
-    { value: "xlarge (1000+)", label: ">1000 Employees" },
+    { value: "micro (<10)", label: "<10 Club Members" },
+    { value: "small (10-49)", label: "10-49 Club Members" },
+    { value: "mediumSmall (50-99)", label: "50-99 Club Members" },
+    { value: "medium (100-249)", label: "100-249 Club Members" },
+    { value: "mediumLarge (250-499)", label: "250-499 Club Members" },
+    { value: "large (500-999)", label: "500-999 Club Members" },
+    { value: "xlarge (1000+)", label: ">1000 Club Members" },
   ];
 
   options = {

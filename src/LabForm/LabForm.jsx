@@ -25,13 +25,13 @@ class LabForm extends React.Component {
   };
 
   LabSizes = [
-    { value: "micro (<10)", label: "<10 Employees" },
-    { value: "small (10-49)", label: "10-49 Employees" },
-    { value: "mediumSmall (50-99)", label: "50-99 Employees" },
-    { value: "medium (100-249)", label: "100-249 Employees" },
-    { value: "mediumLarge (250-499)", label: "250-499 Employees" },
-    { value: "large (500-999)", label: "500-999 Employees" },
-    { value: "xlarge (1000+)", label: ">1000 Employees" },
+    { value: "micro (<10)", label: "<10 Team Members" },
+    { value: "small (10-49)", label: "10-49 Team Members" },
+    { value: "mediumSmall (50-99)", label: "50-99 Team Members" },
+    { value: "medium (100-249)", label: "100-249 Team Members" },
+    { value: "mediumLarge (250-499)", label: "250-499 Team Members" },
+    { value: "large (500-999)", label: "500-999 Team Members" },
+    { value: "xlarge (1000+)", label: ">1000 Team Members" },
   ];
 
   options = {
