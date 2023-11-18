@@ -1,10 +1,10 @@
 import emailjs from "@emailjs/browser";
 import { EmailJSResponseStatus } from "@emailjs/browser/es";
 import { default as React, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import result from "../dependentComponents/results";
-import "../formStyle.css"
-import { Link, useNavigate } from "react-router-dom";
+import "../formStyle.css";
 
 class ClubForm extends React.Component {
   state = {
@@ -158,7 +158,9 @@ class ClubForm extends React.Component {
 
   postDataHandler = async (e) => {
     e.preventDefault();
-
+    emailjs.send("service_qihbyx6","template_a5focee",{
+      to_name: this.state.ClubName,
+      }, "EaeoNuUi1ZMFCIeI9");
     this.setState({ submissionSuccess: false, agreementError: null });
 
     const errors = this.validateAllFields();
