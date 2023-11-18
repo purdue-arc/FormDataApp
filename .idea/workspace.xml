@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="20c62084-0d88-435b-a48f-2bb0c5a4d53f" name="Changes" comment="State dropdown saves to variable">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Nav.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Nav.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Nav.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Nav.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Nav.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Nav.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +40,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "multiApp",
-    "last_opened_file_path": "C:/Users/bedga/WebstormProjects/arclanding/website2.0",
+    "last_opened_file_path": "C:/Users/bedga/WebstormProjects/rise",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -58,11 +57,11 @@
       <recent name="C:\Users\bedga\WebstormProjects\FormDataApp\src\ClubForm" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\bedga\WebstormProjects\FormDataApp\src\Forms" />
       <recent name="C:\Users\bedga\WebstormProjects\FormDataApp\src" />
+      <recent name="C:\Users\bedga\WebstormProjects\FormDataApp\assets" />
+      <recent name="C:\Users\bedga\WebstormProjects\FormDataApp\src\Forms" />
       <recent name="C:\Users\bedga\WebstormProjects\FormDataApp\src\CompanyForm" />
       <recent name="C:\Users\bedga\WebstormProjects\FormDataApp\src\dependentComponents" />
-      <recent name="C:\Users\bedga\WebstormProjects\FormDataApp\src\formPosting" />
     </key>
   </component>
   <component name="RunManager">
@@ -88,6 +87,7 @@
       <workItem from="1699109029477" duration="1029000" />
       <workItem from="1699126411952" duration="6114000" />
       <workItem from="1700177735975" duration="6551000" />
+      <workItem from="1700338965049" duration="5547000" />
     </task>
     <task id="LOCAL-00001" summary="Added Dropdown for state selection">
       <option name="closed" value="true" />

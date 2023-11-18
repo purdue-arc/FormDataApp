@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
 import "./Nav.css";
+import logo from "./RISE-Logo.png"
 
 const Menu = () => (
     <>
@@ -23,6 +24,9 @@ const Navbar  = () => {
         <div className="gpt3__navbar">
             <div className="gpt3__navbar-links">
                 <div className="gpt3__navbar-links_logo">
+                    <img
+                        src={logo} alt={"RISE_Logo"}
+                        />
                 </div>
                 <div className="gpt3__navbar-links_container">
                     <Menu />
