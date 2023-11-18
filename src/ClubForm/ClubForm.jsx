@@ -25,13 +25,13 @@ class ClubForm extends React.Component {
   };
 
   ClubSizes = [
-    { value: "micro (<10)", label: "<10 Employees" },
-    { value: "small (10-49)", label: "10-49 Employees" },
-    { value: "mediumSmall (50-99)", label: "50-99 Employees" },
-    { value: "medium (100-249)", label: "100-249 Employees" },
-    { value: "mediumLarge (250-499)", label: "250-499 Employees" },
-    { value: "large (500-999)", label: "500-999 Employees" },
-    { value: "xlarge (1000+)", label: ">1000 Employees" },
+    { value: "micro (<10)", label: "<10 Club Members" },
+    { value: "small (10-49)", label: "10-49 Club Members" },
+    { value: "mediumSmall (50-99)", label: "50-99 Club Members" },
+    { value: "medium (100-249)", label: "100-249 Club Members" },
+    { value: "mediumLarge (250-499)", label: "250-499 Club Members" },
+    { value: "large (500-999)", label: "500-999 Club Members" },
+    { value: "xlarge (1000+)", label: ">1000 Club Members" },
   ];
 
   options = {
@@ -151,7 +151,7 @@ class ClubForm extends React.Component {
       comments: "",
       errors: {},
       agreeToTerms: false,
-      submissionSuccess: false,
+      submissionSuccess: true,
       ClubSizeKey: this.state.ClubSizeKey + 1,
     });
   };
@@ -163,6 +163,8 @@ class ClubForm extends React.Component {
       }, "EaeoNuUi1ZMFCIeI9");
     this.setState({ submissionSuccess: false, agreementError: null });
 
+    this.setState({ agreementError: null });
+
     const errors = this.validateAllFields();
     const hasErrors = Object.keys(errors).length > 0;
     const agreementError = !this.state.agreeToTerms
@@ -173,11 +175,11 @@ class ClubForm extends React.Component {
       this.setState({ errors });
     } else if (agreementError) {
       this.setState({ agreementError });
-    } else {
+    } else if(!this.state.submissionSuccess) {
       const Data = this.collectFormData();
 
       try {
-        const response = await result.post(`/marks.json`, Data);
+        const response = await result.post(`/clubs.json`, Data);
         if (response.status === 200) {
           console.log("Success:", response.data);
         }

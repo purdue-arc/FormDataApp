@@ -4,7 +4,8 @@ import { default as React, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import result from "../dependentComponents/results";
-import "../formStyle.css";
+import "../formStyle.css"
+import { Link, useNavigate } from "react-router-dom";
 
 class CompanyForm extends React.Component {
   state = {
@@ -151,18 +152,16 @@ class CompanyForm extends React.Component {
       comments: "",
       errors: {},
       agreeToTerms: false,
-      submissionSuccess: false,
+      submissionSuccess: true,
       companySizeKey: this.state.companySizeKey + 1,
     });
   };
 
   postDataHandler = async (e) => {
     e.preventDefault();
-    console.log(this.state.companyName)
-    emailjs.send("service_qihbyx6","template_a5focee",{
-      to_name: this.state.companyName,
-      }, "EaeoNuUi1ZMFCIeI9");
+
     this.setState({ submissionSuccess: false, agreementError: null });
+
     const errors = this.validateAllFields();
     const hasErrors = Object.keys(errors).length > 0;
     const agreementError = !this.state.agreeToTerms
@@ -173,11 +172,11 @@ class CompanyForm extends React.Component {
       this.setState({ errors });
     } else if (agreementError) {
       this.setState({ agreementError });
-    } else {
+    } else if(!this.state.submissionSuccess){
       const Data = this.collectFormData();
 
       try {
-        const response = await result.post(`/marks.json`, Data);
+        const response = await result.post(`/companies.json`, Data);
         if (response.status === 200) {
           console.log("Success:", response.data);
         }

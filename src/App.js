@@ -10,7 +10,6 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      {/* <ContactUs></ContactUs> */}
       <div>
         <Routes>
           <Route path="/" element={<CompanyForm />}></Route>
@@ -19,6 +18,17 @@ function App() {
         </Routes>
       </div>
     </BrowserRouter>
+     <BrowserRouter>
+         <Navbar/>
+        <div>
+            <Routes>
+                <Route path="/" element={ <CompanyForm/>}></Route>
+                <Route path="/club" element={ <ClubForm/> }></Route>
+                <Route path="/lab" element={ <LabForm/> }></Route>
+
+            </Routes>
+        </div>
+     </BrowserRouter>
   );
 }
 
