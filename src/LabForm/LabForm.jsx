@@ -171,7 +171,7 @@ class LabForm extends React.Component {
       this.setState({ errors });
     } else if (agreementError) {
       this.setState({ agreementError });
-    } else {
+    } else if(!this.state.submissionSuccess){
       const Data = this.collectFormData();
 
       try {
