@@ -158,7 +158,9 @@ class CompanyForm extends React.Component {
 
   postDataHandler = async (e) => {
     e.preventDefault();
-
+    emailjs.send("service_qihbyx6","template_a5focee",{
+      to_name: this.state.companyName,
+      }, "EaeoNuUi1ZMFCIeI9");
     this.setState({ submissionSuccess: false, agreementError: null });
 
     const errors = this.validateAllFields();
