@@ -175,7 +175,7 @@ class LabForm extends React.Component {
       const Data = this.collectFormData();
 
       try {
-        const response = await result.post(`/marks.json`, Data);
+        const response = await result.post(`/labs.json`, Data);
         if (response.status === 200) {
           console.log("Success:", response.data);
         }
