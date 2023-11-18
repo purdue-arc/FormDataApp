@@ -4,8 +4,7 @@ import { default as React, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import result from "../dependentComponents/results";
-import "../formStyle.css"
-import { Link, useNavigate } from "react-router-dom";
+import "../formStyle.css";
 
 class CompanyForm extends React.Component {
   state = {
