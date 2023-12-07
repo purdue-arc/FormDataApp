@@ -209,12 +209,12 @@ class CompanyForm extends React.Component {
     const customStyles = {
       control: (base) => ({
         ...base,
-        fontSize: "14px",
+        fontSize: "12px",
         fontFamily: "Arial",
       }),
       option: (base) => ({
         ...base,
-        fontSize: "14px",
+        fontSize: "12px",
         fontFamily: "Arial",
       }),
     };
