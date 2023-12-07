@@ -357,7 +357,8 @@ class LabForm extends React.Component {
               <div className="field">
                 {this.state.submissionSuccess && (
                   <div className="success-message">
-                    Your form has been successfully submitted!
+                    Your form has been successfully submitted! If any questions
+                    or concerns, you can contact us here: vmuthuku@purdue.edu
                   </div>
                 )}
                 {this.state.agreementError && (
