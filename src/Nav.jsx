@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
 import "./Nav.css";
-import logo from "./RISE-Logo.png"
+import logo from "./riselogo.png"
 
 const Menu = () => (
     <>
         <p>
-            <Link to="/company"> Company </Link>
+            <a style={{color:"#ffffff", textDecoration: "none"}}href="company">Company</a>
         </p>
         <p>
-            <Link to="/club"> Club </Link>
+            <a style={{color:"#ffffff", textDecoration: "none"}}href="club">Club</a>
         </p>
         <p>
-            <Link to="/lab"> Lab </Link>
+            <a style={{color:"#ffffff", textDecoration: "none"}}href="lab">Lab</a>
         </p>
     </>
 );

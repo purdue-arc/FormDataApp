@@ -1,12 +1,10 @@
 .gpt3__navbar {
     display: flex;
     align-items: center;
-    background: #f0f5fb; /* Light blue background color */
+    background: rgb(2, 14, 31);
     padding: 2rem;
-    border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 .gpt3__navbar-links {
     flex: 1;
     display: flex;
@@ -19,7 +17,7 @@
 }
 
 .gpt3__navbar-links_logo img {
-    width: 35%;
+    width: 12vw;
     height: auto;
 }
 
