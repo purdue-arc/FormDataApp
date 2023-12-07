@@ -4,17 +4,7 @@ import ClubForm from "./ClubForm/ClubForm";
 import CompanyForm from "./CompanyForm/CompanyForm";
 import LabForm from "./LabForm/LabForm";
 import Navbar from "./Nav";
-
-function StartScreen() {
-    return (
-        <div>
-            <h1>Welcome! Choose an endpoint:</h1>
-            <Link to="/company">Company</Link>
-            <Link to="/club">Club</Link>
-            <Link to="/lab">Lab</Link>
-        </div>
-    );
-}
+import StartScreen from "./StartScreen/StartScreen";
 
 function App() {
     return (
