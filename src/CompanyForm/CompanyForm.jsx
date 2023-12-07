@@ -1,13 +1,12 @@
 import emailjs from "@emailjs/browser";
 import { EmailJSResponseStatus } from "@emailjs/browser/es";
 import { default as React, useRef } from "react";
-import Select from "react-select";
-import result from "./dependentComponents/results";
-import submissionValid from "./submissionValid";
-import "./style.css";
 import { Link, useNavigate } from "react-router-dom";
+import Select from "react-select";
+import result from "../dependentComponents/results";
+import "../formStyle.css";
 
-class ResultsAdd extends React.Component {
+class CompanyForm extends React.Component {
   state = {
     companyName: "",
     companySize: "",
@@ -152,14 +151,16 @@ class ResultsAdd extends React.Component {
       comments: "",
       errors: {},
       agreeToTerms: false,
-      submissionSuccess: false,
+      submissionSuccess: true,
       companySizeKey: this.state.companySizeKey + 1,
     });
   };
 
   postDataHandler = async (e) => {
     e.preventDefault();
-
+    emailjs.send("service_qihbyx6","template_a5focee",{
+      to_name: this.state.companyName,
+      }, "EaeoNuUi1ZMFCIeI9");
     this.setState({ submissionSuccess: false, agreementError: null });
 
     const errors = this.validateAllFields();
@@ -172,11 +173,11 @@ class ResultsAdd extends React.Component {
       this.setState({ errors });
     } else if (agreementError) {
       this.setState({ agreementError });
-    } else {
+    } else if(!this.state.submissionSuccess){
       const Data = this.collectFormData();
 
       try {
-        const response = await result.post(`/marks.json`, Data);
+        const response = await result.post(`/companies.json`, Data);
         if (response.status === 200) {
           console.log("Success:", response.data);
         }
@@ -270,7 +271,7 @@ class ResultsAdd extends React.Component {
       <div className="ui placeholder segment">
         <div className="ui one column very relaxed stackable grid">
           <div className="column">
-            <h3>RISE Organization Sign-Up Form</h3>
+            <h3>RISE Company Sign-Up Form</h3>
             <form className="ui form" onSubmit={this.postDataHandler}>
               {this.renderInputField(
                 "text",
@@ -372,4 +373,4 @@ class ResultsAdd extends React.Component {
   }
 }
 
-export default ResultsAdd;
+export default CompanyForm;
