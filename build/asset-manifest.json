@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.abe3ffd8.css",
+    "main.js": "/static/js/main.122e83ad.js",
+    "static/js/496.da9c7e4a.chunk.js": "/static/js/496.da9c7e4a.chunk.js",
+    "static/media/riselogo.png": "/static/media/riselogo.dc594f40e80bac393fa6.png",
+    "index.html": "/index.html",
+    "main.abe3ffd8.css.map": "/static/css/main.abe3ffd8.css.map",
+    "main.122e83ad.js.map": "/static/js/main.122e83ad.js.map",
+    "496.da9c7e4a.chunk.js.map": "/static/js/496.da9c7e4a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.abe3ffd8.css",
+    "static/js/main.122e83ad.js"
+  ]
+}
