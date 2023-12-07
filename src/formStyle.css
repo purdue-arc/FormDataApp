@@ -2,7 +2,7 @@
 
 /* Container for the form */
 .ui.placeholder.segment {
-  background-color: #f0f5fb; /* Light blue background color */
+  background-image: radial-gradient(at top left, rgba(109, 213, 237, 0.2) 30%, rgba(33, 147, 176, 0.2) 70%, rgba(144, 164, 174, 0.2) 90%, rgba(176, 190, 197, 0.2) 100%);
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
