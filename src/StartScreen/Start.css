@@ -35,7 +35,7 @@
     position: relative;
     transform: translateY(20px);
     opacity: 0;
-    animation: slideInUp 1s ease-out 0.5s forwards;
+    animation: slideInUp 0.75s ease-out 0.5s forwards;
 }
 @keyframes fadeInScreen {
     to { opacity: 1; }
@@ -100,3 +100,11 @@
     outline: none; /* Remove outline for a clean look */
 }
 
+.fade-out {
+    animation: fadeOutScreen 0.5s ease-out forwards;
+}
+
+@keyframes fadeOutScreen {
+    from {opacity: 1; }
+    to { opacity: 0; }
+}
