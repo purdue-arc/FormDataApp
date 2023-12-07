@@ -1,23 +1,56 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import ClubForm from "./ClubForm/ClubForm";
 import CompanyForm from "./CompanyForm/CompanyForm";
 import LabForm from "./LabForm/LabForm";
 import Navbar from "./Nav";
 
+function StartScreen() {
+    return (
+        <div>
+            <h1>Welcome! Choose an endpoint:</h1>
+            <Link to="/company">Company</Link>
+            <Link to="/club">Club</Link>
+            <Link to="/lab">Lab</Link>
+        </div>
+    );
+}
+
 function App() {
-  return (
-    <BrowserRouter>
-      <Navbar />
-      <div>
-        <Routes>
-          <Route path="/" element={<CompanyForm />}></Route>
-          <Route path="/club" element={<ClubForm />}></Route>
-          <Route path="/lab" element={<LabForm />}></Route>
-        </Routes>
-      </div>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<StartScreen />} />
+                <Route
+                    path="/company"
+                    element={
+                        <>
+                            <Navbar />
+                            <CompanyForm />
+                        </>
+                    }
+                />
+                <Route
+                    path="/club"
+                    element={
+                        <>
+                            <Navbar />
+                            <ClubForm />
+                        </>
+                    }
+                />
+                <Route
+                    path="/lab"
+                    element={
+                        <>
+                            <Navbar />
+                            <LabForm />
+                        </>
+                    }
+                />
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;

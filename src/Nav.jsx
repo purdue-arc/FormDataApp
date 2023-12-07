@@ -7,7 +7,7 @@ import logo from "./RISE-Logo.png"
 const Menu = () => (
     <>
         <p>
-            <Link to="/"> Company </Link>
+            <Link to="/company"> Company </Link>
         </p>
         <p>
             <Link to="/club"> Club </Link>
