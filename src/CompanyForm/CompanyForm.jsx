@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import result from "../dependentComponents/results";
 import "../formStyle.css";
+import SubmissionOverlay from '../SubmissionOverlay/SubmissionOverlay';
 
 class CompanyForm extends React.Component {
   state = {
@@ -180,6 +181,9 @@ class CompanyForm extends React.Component {
         const response = await result.post(`/companies.json`, Data);
         if (response.status === 200) {
           console.log("Success:", response.data);
+          setTimeout(() => {
+            this.resetForm();
+          }, 1000);
         }
         this.resetForm();
         this.setState({ submissionSuccess: true });
@@ -353,12 +357,6 @@ class CompanyForm extends React.Component {
               </div>
 
               <div className="field">
-                {this.state.submissionSuccess && (
-                  <div className="success-message">
-                    Your form has been successfully submitted! If any questions
-                    or concerns, you can contact us here: vmuthuku@purdue.edu
-                  </div>
-                )}
                 {this.state.agreementError && (
                   <p className="error" style={{ color: "red" }}>
                     {this.state.agreementError}
@@ -368,6 +366,7 @@ class CompanyForm extends React.Component {
             </form>
           </div>
         </div>
+        {this.state.submissionSuccess && <SubmissionOverlay />}
       </div>
     );
   }

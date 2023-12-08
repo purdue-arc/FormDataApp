@@ -5,6 +5,7 @@ import CompanyForm from "./CompanyForm/CompanyForm";
 import LabForm from "./LabForm/LabForm";
 import Navbar from "./Nav";
 import StartScreen from "./StartScreen/StartScreen";
+import SubmissionOverlay from "./SubmissionOverlay/SubmissionOverlay";
 
 function App() {
     return (
