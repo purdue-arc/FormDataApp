@@ -66,18 +66,15 @@ input {
   opacity: 0; /* Default state with no overlay */
 }
 
-.ui.blue.submit.button:hover::before, .ui.blue.submit.button:focus::before {
+.ui.blue.submit.button:hover::before {
   opacity: 1;
 }
 
-.ui.blue.submit.button:hover, .ui.blue.submit.button:focus {
+.ui.blue.submit.button:hover {
   transform: translateY(-1px); /* Slight lift on hover */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); /* Deeper shadow on hover */
 }
 
-.ui.blue.submit.button:focus {
-  outline: none; /* Remove outline for a clean look */
-}
 
 .checkbox-wrapper {
   display: flex;
