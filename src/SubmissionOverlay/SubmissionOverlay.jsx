@@ -1,16 +1,19 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SubmissionOverlay.css";
-import {default as React} from "react"; // Import the CSS file for styling
 
 function SubmissionOverlay() {
+    const [whiteOverlay, setWhiteOverlay] = useState(false);
     const navigate = useNavigate();
 
     const handleBackClick = () => {
-        navigate("/"); // Navigate back to the start screen
+        setWhiteOverlay(true);
+        setTimeout(() => navigate("/"), 1000); // Adjust the duration to match the fade-in animation time
     };
 
     return (
         <div className="submission-overlay">
+            {whiteOverlay && <div className="white-overlay"></div>}
             <div className="overlay-content">
                 <h2>Submission Successful!</h2>
                 <div className="success-message">
