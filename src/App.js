@@ -5,7 +5,7 @@ import CompanyForm from "./CompanyForm/CompanyForm";
 import LabForm from "./LabForm/LabForm";
 import Navbar from "./Nav";
 import StartScreen from "./StartScreen/StartScreen";
-import SubmissionOverlay from "./SubmissionOverlay/SubmissionOverlay";
+import FadeOverlay from "./FadeOverlay/FadeOverlay";
 
 function App() {
     return (
@@ -16,6 +16,7 @@ function App() {
                     path="/company"
                     element={
                         <>
+                            <FadeOverlay/>
                             <Navbar />
                             <CompanyForm />
                         </>
@@ -25,6 +26,7 @@ function App() {
                     path="/club"
                     element={
                         <>
+                            <FadeOverlay/>
                             <Navbar />
                             <ClubForm />
                         </>
@@ -34,6 +36,7 @@ function App() {
                     path="/lab"
                     element={
                         <>
+                            <FadeOverlay/>
                             <Navbar />
                             <LabForm />
                         </>

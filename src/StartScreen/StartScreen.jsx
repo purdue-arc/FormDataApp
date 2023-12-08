@@ -8,8 +8,11 @@ function StartScreen() {
 
     const handleLinkClick = (path) => {
         setFadeOut(true);
-        setTimeout(() => navigate(path), 500); // Match this with the duration of your fade-out animation
+        setTimeout(() => {
+            navigate(path, { state: { fromStartScreen: true } });
+        }, 500);
     };
+
 
     useEffect(() => {
         let timeout;
