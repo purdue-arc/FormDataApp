@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
     Search, Filter, Download, Building2, FlaskConical,
     Users, Calendar, PhoneCall, Mail, RefreshCw, AlertCircle, UsersIcon,
@@ -12,7 +12,7 @@ function SubmissionModal({ isOpen, onClose, submission, getEntityName, getEntity
 
     return (
         <div className={`modal-overlay ${isOpen ? 'active' : ''}`} onClick={onClose}>
-            <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <button className="modal-close" onClick={onClose}>
                     <X size={24} />
                 </button>
@@ -68,41 +68,51 @@ export default function SubmissionsDashboard() {
     });
     const [selectedSubmission, setSelectedSubmission] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    const handleLogin = async (username, password) => {
+        try {
+            const credentialsResponse = await result.get('/credentials.json');
+            const credentials = credentialsResponse.data;
+
+            if (credentials.user === username && credentials.password === password) {
+                setIsAuthenticated(true);
+            } else {
+                alert('Incorrect credentials. Please try again.');
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            alert('Login failed. Please try again.');
+        }
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const [labsResponse, companiesResponse, clubsResponse] = await Promise.all([
-                    result.get('/labs.json'),
-                    result.get('/companies.json'),
-                    result.get('/clubs.json')
-                ]);
+        if (isAuthenticated) {
+            const fetchData = async () => {
+                setLoading(true);
+                try {
+                    const [labsResponse, companiesResponse, clubsResponse] = await Promise.all([
+                        result.get('/labs.json'),
+                        result.get('/companies.json'),
+                        result.get('/clubs.json')
+                    ]);
 
-                const labsData = labsResponse.data ? Object.values(labsResponse.data) : [];
-                const companiesData = companiesResponse.data ? Object.values(companiesResponse.data) : [];
-                const clubsData = clubsResponse.data ? Object.values(clubsResponse.data) : [];
+                    setData({
+                        labs: labsResponse.data ? Object.values(labsResponse.data) : [],
+                        companies: companiesResponse.data ? Object.values(companiesResponse.data) : [],
+                        clubs: clubsResponse.data ? Object.values(clubsResponse.data) : []
+                    });
+                } catch (err) {
+                    setError('Failed to fetch data. Please try again later.');
+                    console.error('Fetch error:', err);
+                } finally {
+                    setLoading(false);
+                }
+            };
 
-                setData({
-                    labs: labsData,
-                    companies: companiesData,
-                    clubs: clubsData
-                });
-            } catch (err) {
-                setError('Failed to fetch data. Please try again later.');
-                console.error('Fetch error:', err);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    const handleCardClick = (submission) => {
-        setSelectedSubmission(submission);
-        setIsModalOpen(true);
-    };
+            fetchData();
+        }
+    }, [isAuthenticated]);
 
     const getEntityName = (item, type) => {
         switch(type) {
@@ -122,7 +132,7 @@ export default function SubmissionsDashboard() {
         }
     };
 
-    const filteredData = React.useMemo(() => {
+    const filteredData = useMemo(() => {
         let combined = [];
 
         if (filters.type === 'all' || filters.type === 'labs') {
@@ -160,7 +170,7 @@ export default function SubmissionsDashboard() {
         });
     }, [data, searchTerm, filters, sortConfig]);
 
-    const stats = React.useMemo(() => ({
+    const stats = useMemo(() => ({
         totalSubmissions: filteredData.length,
         totalLabs: data.labs.length,
         totalCompanies: data.companies.length,
@@ -207,6 +217,31 @@ export default function SubmissionsDashboard() {
         link.click();
     };
 
+    if (!isAuthenticated) {
+        return (
+            <div className="login-container">
+                <h1 className="login-title">Login</h1>
+                <form
+                    className="login-form"
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        handleLogin(e.target.elements.username.value, e.target.elements.password.value);
+                    }}
+                >
+                    <div className="form-group">
+                        <label htmlFor="username" className="form-label">Username:</label>
+                        <input type="text" id="username" name="username" className="form-input" required />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password" className="form-label">Password:</label>
+                        <input type="password" id="password" name="password" className="form-input" required />
+                    </div>
+                    <button type="submit" className="btn">Login</button>
+                </form>
+            </div>
+        );
+    }
+
     if (loading) {
         return (
             <div className="loading-container">
@@ -223,7 +258,6 @@ export default function SubmissionsDashboard() {
             </div>
         );
     }
-
     return (
         <div className="dashboard-container">
             <div className="header-section">
@@ -322,7 +356,7 @@ export default function SubmissionsDashboard() {
                     <div
                         key={index}
                         className="submission-card"
-                        onClick={() => handleCardClick(item)}
+                        onClick={() => setSelectedSubmission(item)}
                     >
                         <div className="submission-content">
                             <div className="submission-main">
@@ -331,8 +365,8 @@ export default function SubmissionsDashboard() {
                                     {item.type === 'company' && <Building2 className="icon-base icon-green" />}
                                     {item.type === 'club' && <UsersIcon className="icon-base icon-orange" />}
                                     <h3 className="submission-title">
-                                        {getEntityName(item, item.type).length > 60 ?
-                                            `${getEntityName(item, item.type).slice(0, 58)}...`
+                                        {getEntityName(item, item.type).length > 60
+                                            ? `${getEntityName(item, item.type).slice(0, 58)}...`
                                             : getEntityName(item, item.type)}
                                     </h3>
                                 </div>
