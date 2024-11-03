@@ -6,6 +6,7 @@ import LabForm from "./LabForm/LabForm";
 import Navbar from "./Nav";
 import StartScreen from "./StartScreen/StartScreen";
 import FadeOverlay from "./FadeOverlay/FadeOverlay";
+import SubmissionsDashboard from "./DataViewer/DataViewer";
 
 function App() {
     return (
@@ -39,6 +40,15 @@ function App() {
                             <FadeOverlay/>
                             <Navbar />
                             <LabForm />
+                        </>
+                    }
+                />
+                <Route
+                    path="/viewer"
+                    element={
+                        <>
+                            <Navbar />
+                            <SubmissionsDashboard/>
                         </>
                     }
                 />
