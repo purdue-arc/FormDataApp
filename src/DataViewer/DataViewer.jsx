@@ -8,10 +8,10 @@ import result from "../dependentComponents/results";
 import './dashboard-styles.css';
 
 function SubmissionModal({ isOpen, onClose, submission, getEntityName, getEntitySize }) {
-    if (!submission) return null;
+    if (!isOpen || !submission) return null;
 
     return (
-        <div className={`modal-overlay ${isOpen ? 'active' : ''}`} onClick={onClose}>
+        <div className="modal-overlay active" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <button className="modal-close" onClick={onClose}>
                     <X size={24} />
@@ -178,6 +178,11 @@ export default function SubmissionsDashboard() {
         totalParticipants: filteredData.reduce((acc, item) => acc + parseInt(item.numPeople || 0, 10), 0)
     }), [filteredData, data]);
 
+    const handleCardClick = (submission) => {
+        setSelectedSubmission(submission);
+        setIsModalOpen(true);
+    };
+
     const handleExportCSV = () => {
         const headers = [
             'Type',
@@ -258,6 +263,7 @@ export default function SubmissionsDashboard() {
             </div>
         );
     }
+
     return (
         <div className="dashboard-container">
             <div className="header-section">
@@ -356,7 +362,7 @@ export default function SubmissionsDashboard() {
                     <div
                         key={index}
                         className="submission-card"
-                        onClick={() => setSelectedSubmission(item)}
+                        onClick={() => handleCardClick(item)}
                     >
                         <div className="submission-content">
                             <div className="submission-main">
