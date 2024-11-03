@@ -76,6 +76,8 @@ export default function SubmissionsDashboard() {
             const credentials = credentialsResponse.data;
 
             if (credentials.user === username && credentials.password === password) {
+                localStorage.setItem('secretUsername', username);
+                localStorage.setItem('secretPassword', password);
                 setIsAuthenticated(true);
             } else {
                 alert('Incorrect credentials. Please try again.');
@@ -85,6 +87,31 @@ export default function SubmissionsDashboard() {
             alert('Login failed. Please try again.');
         }
     };
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            const storedUsername = localStorage.getItem('secretUsername');
+            const storedPassword = localStorage.getItem('secretPassword');
+
+            if (storedUsername && storedPassword) {
+                try {
+                    const credentialsResponse = await result.get('/credentials.json');
+                    const credentials = credentialsResponse.data;
+
+                    if (credentials.user === storedUsername && credentials.password === storedPassword) {
+                        setIsAuthenticated(true);
+                    } else {
+                        localStorage.removeItem('secretUsername');
+                        localStorage.removeItem('secretPassword');
+                    }
+                } catch (error) {
+                    console.error('Auth check error:', error);
+                }
+            }
+        };
+
+        checkAuth();
+    }, []);
 
     useEffect(() => {
         if (isAuthenticated) {
