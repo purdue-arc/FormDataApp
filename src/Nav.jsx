@@ -6,18 +6,21 @@ import logo from "./riselogo.png"
 const Menu = () => (
     <>
         <p>
-            <a style={{color:"#ffffff", textDecoration: "none"}}href="company">Company</a>
+            <a style={{color: "#ffffff", textDecoration: "none"}} href="company">Company</a>
         </p>
         <p>
-            <a style={{color:"#ffffff", textDecoration: "none"}}href="club">Club</a>
+            <a style={{color: "#ffffff", textDecoration: "none"}} href="club">Club</a>
         </p>
         <p>
-            <a style={{color:"#ffffff", textDecoration: "none"}}href="lab">Lab</a>
+            <a style={{color: "#ffffff", textDecoration: "none"}} href="lab">Lab</a>
+        </p>
+        <p>
+            <a style={{color: "#ffffff", textDecoration: "none"}} href="viewer">View Data</a>
         </p>
     </>
 );
 
-const Navbar  = () => {
+const Navbar = () => {
     const [toggleMenu, setToggleMenu] = useState(false);
     return (
         <div className="gpt3__navbar">
