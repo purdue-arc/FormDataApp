@@ -1,10 +1,10 @@
+import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Building2, Users, Mail, Phone, MapPin, MessageSquare, UserCheck, Presentation, CheckCircle2 } from 'lucide-react';
 import emailjs from "@emailjs/browser";
-import { EmailJSResponseStatus } from "@emailjs/browser/es";
-import { default as React, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Select from "react-select";
 import result from "../dependentComponents/results";
-import "../formStyle.css";
+import '../formStyle.css';
+import './CompanyStyle.css';
 import SubmissionOverlay from '../SubmissionOverlay/SubmissionOverlay';
 
 class CompanyForm extends React.Component {
@@ -23,6 +23,7 @@ class CompanyForm extends React.Component {
     agreeToTerms: false,
     submissionSuccess: false,
     agreementError: null,
+    isLoading: false
   };
 
   companySizes = [
@@ -35,339 +36,233 @@ class CompanyForm extends React.Component {
     { value: "xlarge (1000+)", label: ">1000 Employees" },
   ];
 
-  options = {
-    companySizes: this.companySizes,
-  };
+  participationTypes = [
+    { value: "demo", label: "Demo" },
+    { value: "presentation", label: "Presentation" },
+    { value: "poster", label: "Poster" }
+  ];
 
   validationRules = {
-    companyName: {
-      required: true,
-    },
-    companyAddress: {
-      required: true,
-    },
-    companySize: {
-      required: true,
-    },
-    contactName: {
-      required: true,
-    },
+    companyName: { required: true },
+    companyAddress: { required: true },
+    companySize: { required: true },
+    contactName: { required: true },
     contactEmail: {
       required: true,
       pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
     },
-    contactPhoneNumber: {
-      // Can add phone number validation
-    },
-    numPeople: {
-      required: true,
-    },
-    participationType: {
-      required: true,
-    },
-    comments: {
-      // Add validation rules for comments if needed
-    },
+    contactPhoneNumber: {},
+    numPeople: { required: true },
+    participationType: { required: true },
+    comments: {}
   };
 
-  fieldNames = {
-    companyName: "Company Name",
-    companySize: "Company Size",
-    companyAddress: "Company Address",
-    contactName: "Contact Name",
-    contactEmail: "Contact Email",
-    contactPhoneNumber: "Contact Phone Number",
-    numPeople: "Number of Company Representatives at RISE",
-    participationType: "Participation Type",
-    comments: "Comments",
-  };
+  // Keep all your existing methods (validateField, handleInputChange, etc.)
+  // Just adding the form rendering methods:
 
-  validateField = (fieldName) => {
-    const value = this.state[fieldName];
-    const rules = this.validationRules[fieldName];
-
-    const readableName = this.fieldNames[fieldName] || fieldName;
-
-    if (rules.required && value.trim() === "") {
-      return `${readableName} is required`;
-    }
-
-    return null;
-  };
-
-  handleInputChange = (fieldName, event) => {
-    const newValue = event.target.value;
-    this.setState((prevState) => {
-      const updatedErrors = { ...prevState.errors };
-      const fieldError = this.validateField(fieldName, newValue);
-
-      if (!fieldError) {
-        delete updatedErrors[fieldName];
-      }
-
-      return {
-        [fieldName]: newValue,
-        errors: updatedErrors,
-      };
-    });
-  };
-
-  validateAllFields = () => {
-    const errors = {};
-    Object.keys(this.validationRules).forEach((fieldName) => {
-      const error = this.validateField(fieldName);
-      if (error) {
-        errors[fieldName] = error;
-      }
-    });
-    return errors;
-  };
-
-  collectFormData = () => {
-    const currentDateTime = new Date();
-    return {
-      companyName: this.state.companyName,
-      companySize: this.state.companySize,
-      contactName: this.state.contactName,
-      contactEmail: this.state.contactEmail,
-      contactPhoneNumber: this.state.contactPhoneNumber,
-      numPeople: this.state.numPeople,
-      participationType: this.state.participationType,
-      comments: this.state.comments,
-      submittedAt: currentDateTime.toISOString(),
-      submittedUnixTime: currentDateTime.getTime(),
-    };
-  };
-
-  resetForm = () => {
-    this.setState({
-      companyName: "",
-      companySize: "",
-      companyAddress: "",
-      contactName: "",
-      contactEmail: "",
-      contactPhoneNumber: "",
-      numPeople: "",
-      participationType: "",
-      comments: "",
-      errors: {},
-      agreeToTerms: false,
-      submissionSuccess: true,
-      companySizeKey: this.state.companySizeKey + 1,
-    });
-  };
-
-  postDataHandler = async (e) => {
-    e.preventDefault();
-    emailjs.send("service_qihbyx6","template_a5focee",{
-      to_name: this.state.companyName,
-      }, "EaeoNuUi1ZMFCIeI9");
-    this.setState({ submissionSuccess: false, agreementError: null });
-
-    const errors = this.validateAllFields();
-    const hasErrors = Object.keys(errors).length > 0;
-    const agreementError = !this.state.agreeToTerms
-      ? "You must agree to the terms to proceed."
-      : null;
-
-    if (hasErrors) {
-      this.setState({ errors });
-    } else if (agreementError) {
-      this.setState({ agreementError });
-    } else if(!this.state.submissionSuccess){
-      const Data = this.collectFormData();
-
-      try {
-        const response = await result.post(`/companies.json`, Data);
-        if (response.status === 200) {
-          console.log("Success:", response.data);
-          setTimeout(() => {
-            this.resetForm();
-          }, 1000);
-        }
-        this.resetForm();
-        this.setState({ submissionSuccess: true });
-      } catch (error) {
-        console.error("There was an error saving the form data:", error);
-
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          // The request was made but no response was received
-          console.log(error.request);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          console.log("Error", error.message);
-        }
-      }
-    }
-  };
-
-  handleSelectChange = (fieldName, selectedOption) => {
-    this.setState({ [fieldName]: selectedOption.value });
-  };
-  renderMultiSelect = (fieldName, options, label, placeholder) => {
-    const error = this.state.errors[fieldName];
-    const customStyles = {
-      control: (base) => ({
-        ...base,
-        fontSize: "12px",
-        fontFamily: "Arial",
-      }),
-      option: (base) => ({
-        ...base,
-        fontSize: "12px",
-        fontFamily: "Arial",
-      }),
-    };
+  renderFormField = ({ name, label, type = "text", icon: Icon, options = null }) => {
+    const error = this.state.errors[name];
+    const value = this.state[name];
 
     return (
-      <div className="field">
-        <label>{label}</label>
-        <Select
-          options={this.options[options]}
-          placeholder={placeholder}
-          onChange={(selectedOption) =>
-            this.handleSelectChange(fieldName, selectedOption)
-          }
-          styles={customStyles}
-        />
-        {error && (
-          <p className="error" style={{ color: "red" }}>
-            {error}
-          </p>
-        )}
-      </div>
-    );
-  };
+        <motion.div
+            className="company-form-field"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+        >
+          <label className="company-form-label">
+            {Icon && <Icon size={16} />}
+            {label}
+          </label>
 
-  renderInputField = (type, fieldName, label, placeholder) => {
-    const error = this.state.errors[fieldName];
-
-    return (
-      <div className="field">
-        <label>{label}</label>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <input
-            type={type}
-            placeholder={placeholder}
-            value={this.state[fieldName]}
-            onChange={(e) => this.handleInputChange(fieldName, e)}
-          />
-          {error && (
-            <p className="error" style={{ color: "red" }}>
-              {error}
-            </p>
+          {options ? (
+              <select
+                  className="company-form-select"
+                  value={value}
+                  onChange={(e) => this.handleInputChange(name, e)}
+              >
+                <option value="">Select {label.toLowerCase()}</option>
+                {options.map(opt => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                ))}
+              </select>
+          ) : type === "textarea" ? (
+              <textarea
+                  className={`company-form-textarea ${error ? 'error' : ''}`}
+                  value={value}
+                  onChange={(e) => this.handleInputChange(name, e)}
+                  placeholder={`Enter ${label.toLowerCase()}`}
+                  rows={4}
+              />
+          ) : (
+              <input
+                  type={type}
+                  className={`company-form-input ${error ? 'error' : ''}`}
+                  value={value}
+                  onChange={(e) => this.handleInputChange(name, e)}
+                  placeholder={`Enter ${label.toLowerCase()}`}
+              />
           )}
-        </div>
-      </div>
-    );
-  };
 
-  handleCheckboxChange = (event) => {
-    this.setState({ agreeToTerms: event.target.checked });
+          {error && <div className="company-form-error">{error}</div>}
+        </motion.div>
+    );
   };
 
   render() {
     return (
-      <div className="ui placeholder segment">
-        <div className="ui one column very relaxed stackable grid">
-          <div className="column">
-            <h3>RISE Company Sign-Up Form</h3>
-            <form className="ui form" onSubmit={this.postDataHandler}>
-              {this.renderInputField(
-                "text",
-                "companyName",
-                "Company Name:",
-                "Company Name"
-              )}
-              <div className="field" key={this.state.companySizeKey}>
-                {this.renderMultiSelect(
-                  "companySize",
-                  "companySizes",
-                  "Company Size:",
-                  "Select Company Size"
-                )}
+        <div className="company-page-wrapper">
+          <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="company-form-wrapper"
+          >
+            <div className="company-form-container">
+              <div className="company-form-header">
+                <div className="company-header-content">
+                  <h2 className="company-form-title">RISE Company Sign-Up</h2>
+                  <p className="company-form-subtitle">Join us at the upcoming RISE conference</p>
+                </div>
+                <div className="company-header-decoration"></div>
               </div>
-              {this.renderInputField(
-                "text",
-                "companyAddress",
-                "Company Address:",
-                "Company Address"
-              )}
-              {this.renderInputField(
-                "text",
-                "contactName",
-                "Contact Name:",
-                "Contact Name"
-              )}
-              {this.renderInputField(
-                "email",
-                "contactEmail",
-                "Contact Email:",
-                "Contact Email"
-              )}
-              {this.renderInputField(
-                "text",
-                "contactPhoneNumber",
-                "Contact Phone Number:",
-                "Contact Phone Number (Optional)"
-              )}
-              {this.renderInputField(
-                "text",
-                "numPeople",
-                "Number of Company Representatives at RISE:",
-                "Number of Representatives"
-              )}
-              {this.renderInputField(
-                "text",
-                "participationType",
-                "Participation Type:",
-                "Demo/Presentation/Poster"
-              )}
-              {this.renderInputField(
-                "text",
-                "comments",
-                "Additional Comments:",
-                "Additional Comments"
-              )}
 
-              <div className="field">
-                <div className="checkbox-wrapper">
-                  <div className="ui checkbox">
-                    <input
-                      type="checkbox"
-                      checked={this.state.agreeToTerms}
-                      onChange={this.handleCheckboxChange}
-                    />
-                  </div>
-                  <div className="agreement-statement">
-                    By checking this box, you are confirming your company's
-                    commitment to participate in the RISE conference.
+              <form onSubmit={this.postDataHandler} className="company-form-content">
+                <div className="company-form-section">
+                  <h3 className="company-section-title">Company Details</h3>
+                  <div className="company-form-grid">
+                    {this.renderFormField({
+                      name: "companyName",
+                      label: "Company Name",
+                      icon: Building2
+                    })}
+                    {this.renderFormField({
+                      name: "companySize",
+                      label: "Company Size",
+                      icon: Users,
+                      options: this.companySizes
+                    })}
                   </div>
                 </div>
-              </div>
 
-              <div className="field">
-                <button className="ui blue submit button" type="submit">
-                  Submit
-                </button>
-              </div>
+                <div className="company-form-section">
+                  <h3 className="company-section-title">Contact Information</h3>
+                  <div className="company-form-grid">
+                    {this.renderFormField({
+                      name: "contactName",
+                      label: "Contact Name",
+                      icon: UserCheck
+                    })}
+                    {this.renderFormField({
+                      name: "contactEmail",
+                      label: "Contact Email",
+                      type: "email",
+                      icon: Mail
+                    })}
+                    {this.renderFormField({
+                      name: "contactPhoneNumber",
+                      label: "Contact Phone",
+                      type: "tel",
+                      icon: Phone
+                    })}
+                  </div>
+                </div>
 
-              <div className="field">
-                {this.state.agreementError && (
-                  <p className="error" style={{ color: "red" }}>
-                    {this.state.agreementError}
-                  </p>
-                )}
-              </div>
-            </form>
-          </div>
+                <div className="company-form-section">
+                  <h3 className="company-section-title">Participation Details</h3>
+                  <div className="company-form-grid">
+                    {this.renderFormField({
+                      name: "numPeople",
+                      label: "Number of Representatives",
+                      type: "number",
+                      icon: Users
+                    })}
+                    {this.renderFormField({
+                      name: "participationType",
+                      label: "Participation Type",
+                      icon: Presentation,
+                      options: this.participationTypes
+                    })}
+                  </div>
+                </div>
+
+                <div className="company-form-section">
+                  <h3 className="company-section-title">Additional Information</h3>
+                  <div className="company-form-grid-full">
+                    {this.renderFormField({
+                      name: "companyAddress",
+                      label: "Company Address",
+                      type: "textarea",
+                      icon: MapPin
+                    })}
+                    {this.renderFormField({
+                      name: "comments",
+                      label: "Additional Comments",
+                      type: "textarea",
+                      icon: MessageSquare
+                    })}
+                  </div>
+                </div>
+
+                <div className="company-form-section">
+                  <div className="company-form-checkbox-wrapper">
+                    <div className="checkbox-container">
+                      <input
+                          type="checkbox"
+                          id="agreement"
+                          className="company-form-checkbox"
+                          checked={this.state.agreeToTerms}
+                          onChange={(e) => this.setState({ agreeToTerms: e.target.checked })}
+                      />
+                      <label htmlFor="agreement" className="checkbox-label">
+                        I confirm our company's commitment to participate in the RISE conference
+                      </label>
+                    </div>
+                  </div>
+                  <AnimatePresence>
+                    {this.state.agreementError && (
+                        <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="company-form-error"
+                        >
+                          {this.state.agreementError}
+                        </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                <motion.button
+                    type="submit"
+                    className={`company-form-submit ${this.state.isLoading ? 'loading' : ''}`}
+                    disabled={this.state.isLoading}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                >
+                  {this.state.isLoading ? (
+                      <span className="loading-text">
+                    <motion.span
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        className="loading-icon"
+                    >
+                      ⭮
+                    </motion.span>
+                    Submitting...
+                  </span>
+                  ) : (
+                      "Submit Application"
+                  )}
+                </motion.button>
+              </form>
+            </div>
+          </motion.div>
+          {this.state.submissionSuccess && <SubmissionOverlay />}
         </div>
-        {this.state.submissionSuccess && <SubmissionOverlay />}
-      </div>
     );
   }
 }

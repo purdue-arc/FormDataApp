@@ -1,0 +1,309 @@
+/* Page Layout */
+.club-page-wrapper {
+    min-height: calc(100vh - 64px); /* Adjust based on your navbar height */
+    padding: 2rem;
+    background: linear-gradient(135deg, #fff9f5 0%, #fff3e6 100%);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.club-form-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.club-form-container {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.1);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Header Styles */
+.club-form-header {
+    background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.club-header-content {
+    position: relative;
+    z-index: 2;
+}
+
+.club-header-decoration {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.1) 100%);
+    transform: skewX(-20deg) translateX(50%);
+}
+
+.club-form-title {
+    color: white;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.club-form-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+}
+
+/* Form Content */
+.club-form-content {
+    padding: 2rem;
+}
+
+.club-form-section {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #ffedd5;
+}
+
+.club-form-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.club-section-title {
+    color: #f97316;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.club-form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+    .club-form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.club-form-grid-full {
+    display: grid;
+    gap: 1.5rem;
+}
+
+/* Form Fields */
+.club-form-field {
+    position: relative;
+}
+
+.club-form-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #f97316;
+    margin-bottom: 0.5rem;
+}
+
+.club-form-input,
+.club-form-select,
+.club-form-textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ffedd5;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-size: 0.925rem;
+    background-color: white;
+}
+
+.club-form-input:focus,
+.club-form-select:focus,
+.club-form-textarea:focus {
+    outline: none;
+    border-color: #f97316;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.club-form-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Checkbox Styling */
+.club-form-checkbox-wrapper {
+    background-color: #fff7ed;
+    border-radius: 12px;
+    padding: 1.25rem;
+    border: 1px solid #ffedd5;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.club-form-checkbox {
+    appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid #f97316;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    margin-top: 0.25rem;
+}
+
+.club-form-checkbox:checked {
+    background-color: #f97316;
+    border-color: #f97316;
+}
+
+.club-form-checkbox:checked::after {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 0.875rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.checkbox-label {
+    color: #666;
+    font-size: 0.925rem;
+    line-height: 1.5;
+}
+
+/* Submit Button */
+.club-form-submit-wrapper {
+    margin-top: 2rem;
+}
+
+.club-form-submit {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.club-form-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2);
+}
+
+.club-form-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.loading-text {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.loading-icon {
+    display: inline-block;
+}
+
+/* Success Message */
+.club-form-success {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: #ecfdf5;
+    color: #059669;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 50;
+}
+
+.success-icon {
+    color: #059669;
+}
+
+/* Error States */
+.club-form-error {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.club-form-input.error,
+.club-form-select.error,
+.club-form-textarea.error {
+    border-color: #ef4444;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+    .club-page-wrapper {
+        padding: 1rem;
+    }
+
+    .club-form-content {
+        padding: 1.5rem;
+    }
+
+    .club-form-header {
+        padding: 1.5rem;
+    }
+}
+
+.club-form-textarea {
+    width: 80%;
+    min-height: 120px;
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid #ffedd5;
+    border-radius: 8px;
+    font-size: 0.925rem;
+    line-height: 1.5;
+    resize: vertical;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.club-form-textarea:focus {
+    outline: none;
+    border-color: #f97316;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.club-form-grid-full {
+    display: grid;
+    gap: 1.5rem;
+    grid-column: 1 / -1;
+    margin-bottom: 1.5rem;
+}
+
+.club-form-field-full {
+    position: relative;
+    width: 100%;
+}
