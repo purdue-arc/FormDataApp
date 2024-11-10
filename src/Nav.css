@@ -1,9 +1,15 @@
 .gpt3__navbar {
     display: flex;
     align-items: center;
-    background: rgb(2, 14, 31);
-    padding: 2rem;
+    background: rgb(113, 144, 189);
+    padding: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    position: sticky;
+    top: 2px;
+    left: 2.5vw;
+    z-index: 999;
+    width: 95vw;
 }
 .gpt3__navbar-links {
     flex: 1;
@@ -107,13 +113,13 @@
 
 @media screen and (max-width: 700px) {
     .gpt3__navbar {
-        padding: 2rem 4rem;
+        padding: 1rem 2rem;
     }
 }
 
 @media screen and (max-width: 550px) {
     .gpt3__navbar {
-        padding: 2rem;
+        padding: 1rem;
     }
     .gpt3__navbar-sign {
         display: none;
