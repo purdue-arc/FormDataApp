@@ -8,6 +8,7 @@
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.5.1",
     "axios": "^1.6.0",
+    "firebase": "^11.0.1",
     "lucide-react": "^0.454.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -41,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.14"
   }
 }

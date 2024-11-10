@@ -297,7 +297,6 @@ export default function SubmissionsDashboard() {
                 <h1 className="dashboard-title">RISE Conference Submissions</h1>
 
                 <div className="search-container">
-                    <Search className="search-icon" />
                     <input
                         type="text"
                         placeholder="Search submissions..."
