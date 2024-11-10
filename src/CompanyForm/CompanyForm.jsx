@@ -13,7 +13,6 @@ import {
 } from 'lucide-react';
 import emailjs from "@emailjs/browser";
 import result from "../dependentComponents/results"
-import '../formStyle.css';
 import './CompanyStyle.css';
 
 class CompanyForm extends React.Component {
