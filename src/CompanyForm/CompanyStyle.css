@@ -1,0 +1,225 @@
+/* Page Layout */
+.company-page-wrapper {
+    min-height: calc(100vh - 64px);
+    padding: 2rem;
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.company-form-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.company-form-container {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(22, 163, 74, 0.1);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Header Styles */
+.company-form-header {
+    background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.company-header-content {
+    position: relative;
+    z-index: 2;
+}
+
+.company-header-decoration {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.1) 100%);
+    transform: skewX(-20deg) translateX(50%);
+}
+
+.company-form-title {
+    color: white;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.company-form-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+}
+
+/* Form Content */
+.company-form-content {
+    padding: 2rem;
+}
+
+.company-form-section {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #dcfce7;
+}
+
+.company-section-title {
+    color: #16a34a;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.company-form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+    .company-form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.company-form-grid-full {
+    display: grid;
+    gap: 1.5rem;
+}
+
+/* Form Fields */
+.company-form-field {
+    position: relative;
+}
+
+.company-form-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #16a34a;
+    margin-bottom: 0.5rem;
+}
+
+.company-form-input,
+.company-form-select,
+.company-form-textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #dcfce7;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-size: 0.925rem;
+    background-color: white;
+}
+
+.company-form-input:focus,
+.company-form-select:focus,
+.company-form-textarea:focus {
+    outline: none;
+    border-color: #16a34a;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+}
+
+.company-form-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Checkbox Styling */
+.company-form-checkbox-wrapper {
+    background-color: #f0fdf4;
+    border-radius: 12px;
+    padding: 1.25rem;
+    border: 1px solid #dcfce7;
+}
+
+.company-form-checkbox {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid #16a34a;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    margin-top: 0.25rem;
+}
+
+.company-form-checkbox:checked {
+    background-color: #16a34a;
+    border-color: #16a34a;
+}
+
+/* Submit Button */
+.company-form-submit {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.company-form-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
+}
+
+.company-form-success {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: #ecfdf5;
+    color: #059669;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 50;
+}
+
+.success-icon {
+    color: #059669;
+}
+
+.company-form-textarea {
+    width: 80%;
+    min-height: 120px;
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid #dcfce7;
+    border-radius: 8px;
+    font-size: 0.925rem;
+    line-height: 1.5;
+    resize: vertical;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.company-form-textarea:focus {
+    outline: none;
+    border-color: #16a34a;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+}
+
+.company-form-grid-full {
+    display: grid;
+    gap: 1.5rem;
+    grid-column: 1 / -1;
+    margin-bottom: 1.5rem;
+}
+
+.company-form-field-full {
+    position: relative;
+    width: 100%;
+}

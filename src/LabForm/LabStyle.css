@@ -1,0 +1,225 @@
+/* Page Layout */
+.lab-page-wrapper {
+    min-height: calc(100vh - 64px);
+    padding: 2rem;
+    background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.lab-form-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.lab-form-container {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(109, 40, 217, 0.1);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Header Styles */
+.lab-form-header {
+    background: linear-gradient(135deg, #6d28d9 0%, #7c3aed 100%);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.lab-header-content {
+    position: relative;
+    z-index: 2;
+}
+
+.lab-header-decoration {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.1) 100%);
+    transform: skewX(-20deg) translateX(50%);
+}
+
+.lab-form-title {
+    color: white;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.lab-form-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+}
+
+/* Form Content */
+.lab-form-content {
+    padding: 2rem;
+}
+
+.lab-form-section {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #ede9fe;
+}
+
+.lab-section-title {
+    color: #6d28d9;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.lab-form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+    .lab-form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.lab-form-grid-full {
+    display: grid;
+    gap: 1.5rem;
+}
+
+/* Form Fields */
+.lab-form-field {
+    position: relative;
+}
+
+.lab-form-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6d28d9;
+    margin-bottom: 0.5rem;
+}
+
+.lab-form-input,
+.lab-form-select,
+.lab-form-textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ede9fe;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-size: 0.925rem;
+    background-color: white;
+}
+
+.lab-form-input:focus,
+.lab-form-select:focus,
+.lab-form-textarea:focus {
+    outline: none;
+    border-color: #6d28d9;
+    box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.1);
+}
+
+.lab-form-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Checkbox Styling */
+.lab-form-checkbox-wrapper {
+    background-color: #f5f3ff;
+    border-radius: 12px;
+    padding: 1.25rem;
+    border: 1px solid #ede9fe;
+}
+
+.lab-form-checkbox {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid #6d28d9;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    margin-top: 0.25rem;
+}
+
+.lab-form-checkbox:checked {
+    background-color: #6d28d9;
+    border-color: #6d28d9;
+}
+
+/* Submit Button */
+.lab-form-submit {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #6d28d9 0%, #7c3aed 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.lab-form-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(109, 40, 217, 0.2);
+}
+
+.lab-form-success {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: #ecfdf5;
+    color: #059669;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 50;
+}
+
+.success-icon {
+    color: #059669;
+}
+
+.lab-form-textarea {
+    width: 80%;
+    min-height: 120px;
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid #ede9fe;
+    border-radius: 8px;
+    font-size: 0.925rem;
+    line-height: 1.5;
+    resize: vertical;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.lab-form-textarea:focus {
+    outline: none;
+    border-color: #6d28d9;
+    box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.1);
+}
+
+.lab-form-grid-full {
+    display: grid;
+    gap: 1.5rem;
+    grid-column: 1 / -1;
+    margin-bottom: 1.5rem;
+}
+
+.lab-form-field-full {
+    position: relative;
+    width: 100%;
+}
