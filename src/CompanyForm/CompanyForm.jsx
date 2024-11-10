@@ -1,11 +1,20 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Building2, Users, Mail, Phone, MapPin, MessageSquare, UserCheck, Presentation, CheckCircle2 } from 'lucide-react';
+import {AnimatePresence, motion} from 'framer-motion';
+import {
+  Building2,
+  Users,
+  Mail,
+  Phone,
+  MapPin,
+  MessageSquare,
+  UserCheck,
+  Presentation,
+  CheckCircle2
+} from 'lucide-react';
 import emailjs from "@emailjs/browser";
-import result from "../dependentComponents/results";
+import result from "../dependentComponents/results"
 import '../formStyle.css';
 import './CompanyStyle.css';
-import SubmissionOverlay from '../SubmissionOverlay/SubmissionOverlay';
 
 class CompanyForm extends React.Component {
   state = {
@@ -57,8 +66,114 @@ class CompanyForm extends React.Component {
     comments: {}
   };
 
-  // Keep all your existing methods (validateField, handleInputChange, etc.)
-  // Just adding the form rendering methods:
+  validateField = (fieldName, value = this.state[fieldName]) => {
+    const rules = this.validationRules[fieldName];
+
+    if (rules.required && (!value || value.trim() === "")) {
+      return `${fieldName} is required`;
+    }
+
+    if (rules.pattern && !rules.pattern.test(value)) {
+      return `Please enter a valid ${fieldName}`;
+    }
+
+    return null;
+  };
+
+  handleInputChange = (fieldName, event) => {
+    const value = event.target.value;
+    this.setState((prevState) => {
+      const updatedErrors = { ...prevState.errors };
+      const fieldError = this.validateField(fieldName, value);
+
+      if (fieldError) {
+        updatedErrors[fieldName] = fieldError;
+      } else {
+        delete updatedErrors[fieldName];
+      }
+
+      return {
+        [fieldName]: value,
+        errors: updatedErrors,
+      };
+    });
+  };
+
+  validateAllFields = () => {
+    const errors = {};
+    Object.keys(this.validationRules).forEach((fieldName) => {
+      const error = this.validateField(fieldName);
+      if (error) {
+        errors[fieldName] = error;
+      }
+    });
+    return errors;
+  };
+
+  resetForm = () => {
+    this.setState({
+      companyName: "",
+      companySize: "",
+      companyAddress: "",
+      contactName: "",
+      contactEmail: "",
+      contactPhoneNumber: "",
+      numPeople: "",
+      participationType: "",
+      comments: "",
+      errors: {},
+      agreeToTerms: false,
+      submissionSuccess: true,
+      companySizeKey: this.state.companySizeKey + 1,
+    });
+  };
+
+  postDataHandler = async (e) => {
+    e.preventDefault();
+    this.setState({ isLoading: true, submissionSuccess: false, agreementError: null });
+
+    if (!this.state.agreeToTerms) {
+      this.setState({
+        agreementError: "You must agree to the terms to proceed.",
+        isLoading: false
+      });
+      return;
+    }
+
+    const errors = this.validateAllFields();
+    if (Object.keys(errors).length > 0) {
+      this.setState({ errors, isLoading: false });
+      return;
+    }
+
+    try {
+      await emailjs.send(
+          "service_qihbyx6",
+          "template_a5focee",
+          {
+            to_name: this.state.companyName,
+          },
+          "EaeoNuUi1ZMFCIeI9"
+      );
+
+      const response = await result.post('/companies.json', {
+        ...this.state,
+        submittedAt: new Date().toISOString()
+      });
+
+      if (response.status === 200) {
+        this.setState({ submissionSuccess: true });
+        setTimeout(this.resetForm, 1000);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      this.setState({
+        errors: { ...this.state.errors, submit: "Failed to submit form. Please try again." }
+      });
+    } finally {
+      this.setState({ isLoading: false });
+    }
+  };
 
   renderFormField = ({ name, label, type = "text", icon: Icon, options = null }) => {
     const error = this.state.errors[name];
@@ -236,32 +351,47 @@ class CompanyForm extends React.Component {
                   </AnimatePresence>
                 </div>
 
-                <motion.button
-                    type="submit"
-                    className={`company-form-submit ${this.state.isLoading ? 'loading' : ''}`}
-                    disabled={this.state.isLoading}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                >
-                  {this.state.isLoading ? (
-                      <span className="loading-text">
-                    <motion.span
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                        className="loading-icon"
-                    >
-                      ⭮
-                    </motion.span>
-                    Submitting...
-                  </span>
-                  ) : (
-                      "Submit Application"
-                  )}
-                </motion.button>
+                <div className="company-form-submit-wrapper">
+                  <motion.button
+                      type="submit"
+                      className={`company-form-submit ${this.state.isLoading ? 'loading' : ''}`}
+                      disabled={this.state.isLoading}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                  >
+                    {this.state.isLoading ? (
+                        <span className="loading-text">
+                      <motion.span
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          className="loading-icon"
+                      >
+                        ⭮
+                      </motion.span>
+                      Submitting...
+                    </span>
+                    ) : (
+                        "Submit Application"
+                    )}
+                  </motion.button>
+                </div>
               </form>
+
+              <AnimatePresence>
+                {this.state.submissionSuccess && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        className="company-form-success"
+                    >
+                      <CheckCircle2 className="success-icon" />
+                      <span>Form submitted successfully! Thank you for registering.</span>
+                    </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </motion.div>
-          {this.state.submissionSuccess && <SubmissionOverlay />}
         </div>
     );
   }

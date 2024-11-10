@@ -173,15 +173,23 @@
     box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
 }
 
-/* Success Message */
 .company-form-success {
-    background-color: #f0fdf4;
-    color: #16a34a;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: #ecfdf5;
+    color: #059669;
     padding: 1rem 1.5rem;
     border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    z-index: 50;
+}
+
+.success-icon {
+    color: #059669;
 }
 
 .company-form-textarea {
