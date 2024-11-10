@@ -6,6 +6,7 @@ import Select from "react-select";
 import result from "../dependentComponents/results";
 import "../formStyle.css";
 import SubmissionOverlay from '../SubmissionOverlay/SubmissionOverlay';
+import FileUploadComponent from "../ContentUpload";
 
 class ClubForm extends React.Component {
   state = {
@@ -280,69 +281,69 @@ class ClubForm extends React.Component {
             <h3>RISE Purdue Club Sign-Up Form</h3>
             <form className="ui form" onSubmit={this.postDataHandler}>
               {this.renderInputField(
-                "text",
-                "ClubName",
-                "Club Name:",
-                "Club Name"
+                  "text",
+                  "ClubName",
+                  "Club Name:",
+                  "Club Name"
               )}
               <div className="field" key={this.state.ClubSizeKey}>
                 {this.renderMultiSelect(
-                  "ClubSize",
-                  "ClubSizes",
-                  "Club Size:",
-                  "Select Club Size"
+                    "ClubSize",
+                    "ClubSizes",
+                    "Club Size:",
+                    "Select Club Size"
                 )}
               </div>
               {this.renderInputField(
-                "text",
-                "ClubAddress",
-                "Club Address:",
-                "Club Address"
+                  "text",
+                  "ClubAddress",
+                  "Club Address:",
+                  "Club Address"
               )}
               {this.renderInputField(
-                "text",
-                "contactName",
-                "Contact Name:",
-                "Contact Name"
+                  "text",
+                  "contactName",
+                  "Contact Name:",
+                  "Contact Name"
               )}
               {this.renderInputField(
-                "email",
-                "contactEmail",
-                "Contact Email:",
-                "Contact Email"
+                  "email",
+                  "contactEmail",
+                  "Contact Email:",
+                  "Contact Email"
               )}
               {this.renderInputField(
-                "text",
-                "contactPhoneNumber",
-                "Contact Phone Number:",
-                "Contact Phone Number (Optional)"
+                  "text",
+                  "contactPhoneNumber",
+                  "Contact Phone Number:",
+                  "Contact Phone Number (Optional)"
               )}
               {this.renderInputField(
-                "text",
-                "numPeople",
-                "Number of Club Representatives at RISE:",
-                "Number of Representatives"
+                  "text",
+                  "numPeople",
+                  "Number of Club Representatives at RISE:",
+                  "Number of Representatives"
               )}
               {this.renderInputField(
-                "text",
-                "participationType",
-                "Participation Type:",
-                "Demo/Presentation/Poster"
+                  "text",
+                  "participationType",
+                  "Participation Type:",
+                  "Demo/Presentation/Poster"
               )}
               {this.renderInputField(
-                "text",
-                "comments",
-                "Additional Comments:",
-                "Additional Comments"
+                  "text",
+                  "comments",
+                  "Additional Comments:",
+                  "Additional Comments"
               )}
 
               <div className="field">
                 <div className="checkbox-wrapper">
                   <div className="ui checkbox">
                     <input
-                      type="checkbox"
-                      checked={this.state.agreeToTerms}
-                      onChange={this.handleCheckboxChange}
+                        type="checkbox"
+                        checked={this.state.agreeToTerms}
+                        onChange={this.handleCheckboxChange}
                     />
                   </div>
                   <div className="agreement-statement">
@@ -353,6 +354,13 @@ class ClubForm extends React.Component {
               </div>
 
               <div className="field">
+                <FileUploadComponent
+                    onFileSelect={this.handleFileSelect}
+                    preview={this.state.preview}
+                />
+              </div>
+
+              <div className="field">
                 <button className="ui blue submit button" type="submit">
                   Submit
                 </button>
@@ -360,15 +368,15 @@ class ClubForm extends React.Component {
 
               <div className="field">
                 {this.state.agreementError && (
-                  <p className="error" style={{ color: "red" }}>
-                    {this.state.agreementError}
-                  </p>
+                    <p className="error" style={{color: "red"}}>
+                      {this.state.agreementError}
+                    </p>
                 )}
               </div>
             </form>
           </div>
         </div>
-        {this.state.submissionSuccess && <SubmissionOverlay />}
+        {this.state.submissionSuccess && <SubmissionOverlay/>}
       </div>
     );
   }
