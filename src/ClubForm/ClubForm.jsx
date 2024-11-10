@@ -6,6 +6,7 @@ import Select from "react-select";
 import result from "../dependentComponents/results";
 import "../formStyle.css";
 import SubmissionOverlay from '../SubmissionOverlay/SubmissionOverlay';
+import { sendEmail } from "../emailService.js";
 
 class ClubForm extends React.Component {
   state = {
@@ -159,6 +160,19 @@ class ClubForm extends React.Component {
 
   postDataHandler = async (e) => {
     e.preventDefault();
+
+    sendEmail({
+      to: this.state.contactEmail,
+      from: "purdueautonomy@gmail.com", // Replace with your sender email
+      subject: "Confirmation of Sign Up for RISE 3",
+      body: "Thank you for signing up for RISE 3!",
+    })
+    .then((message) => {
+      alert("Email sent successfully");
+    })
+    .catch((error) => alert("Failed to send email"));
+
+    
     emailjs.send("service_qihbyx6","template_a5focee",{
       to_name: this.state.ClubName,
       }, "EaeoNuUi1ZMFCIeI9");
