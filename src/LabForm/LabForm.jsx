@@ -1,5 +1,5 @@
 import React from 'react';
-import {AnimatePresence, motion} from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
   Building2,
   Users,
@@ -10,10 +10,11 @@ import {
   UserCheck,
   Presentation,
   CheckCircle2,
-  FlaskConical, UniversityIcon
+  FlaskConical,
+  University as UniversityIcon
 } from 'lucide-react';
 import emailjs from "@emailjs/browser";
-import result from "../dependentComponents/results"
+import result from "../dependentComponents/results";
 import './LabStyle.css';
 
 class LabForm extends React.Component {
@@ -33,7 +34,11 @@ class LabForm extends React.Component {
     agreeToTerms: false,
     submissionSuccess: false,
     agreementError: null,
-    isLoading: false
+    isLoading: false,
+
+    // NEW: For handling the university autocomplete
+    universitySuggestions: [],
+    showUniversitySuggestions: false,
   };
 
   LabSizes = [
@@ -56,12 +61,12 @@ class LabForm extends React.Component {
   validationRules = {
     LabName: { required: true },
     LabAddress: { required: true },
-    University: { required: false},
+    University: { required: false }, // Not required
     LabSize: { required: true },
     contactName: { required: true },
     contactEmail: {
       required: true,
-      pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+      pattern: /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,4}$/,
     },
     contactPhoneNumber: {},
     numPeople: { required: true },
@@ -78,9 +83,9 @@ class LabForm extends React.Component {
     contactPhoneNumber: "Contact Phone Number",
     numPeople: "Number of People",
     participationType: "Participation Type",
-    comments: "Comments"
+    comments: "Comments",
+    University: "Associated University"
   };
-
 
   validateField = (fieldName, value = this.state[fieldName]) => {
     const rules = this.validationRules[fieldName];
@@ -115,6 +120,58 @@ class LabForm extends React.Component {
     });
   };
 
+  // Autocomplete-specific change handler for University
+  handleUniversityChange = (event) => {
+    const value = event.target.value;
+
+    // Re-use the validation logic for consistent error handling
+    this.handleInputChange("University", event);
+
+    // Fetch suggestions if at least 3 characters typed
+    if (value.length >= 3) {
+      fetch(`http://universities.hipolabs.com/search?name=${encodeURIComponent(value)}`)
+          .then((res) => res.json())
+          .then((data) => {
+            // The API returns an array of objects, each with a "name" field
+            const suggestions = data.map((uni) => uni.name);
+            this.setState({
+              universitySuggestions: suggestions,
+              showUniversitySuggestions: true,
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching university suggestions:", error);
+          });
+    } else {
+      // Hide suggestions if input is too short
+      this.setState({
+        universitySuggestions: [],
+        showUniversitySuggestions: false,
+      });
+    }
+  };
+
+  // When a user clicks on a suggestion
+  handleUniversitySuggestionClick = (suggestion) => {
+    // Set the field value to the selected suggestion
+    this.setState((prevState) => {
+      const updatedErrors = { ...prevState.errors };
+      const fieldError = this.validateField("University", suggestion);
+
+      if (fieldError) {
+        updatedErrors["University"] = fieldError;
+      } else {
+        delete updatedErrors["University"];
+      }
+
+      return {
+        University: suggestion,
+        errors: updatedErrors,
+        showUniversitySuggestions: false,
+      };
+    });
+  };
+
   validateAllFields = () => {
     const errors = {};
     Object.keys(this.validationRules).forEach((fieldName) => {
@@ -142,6 +199,10 @@ class LabForm extends React.Component {
       agreeToTerms: false,
       submissionSuccess: true,
       LabSizeKey: this.state.LabSizeKey + 1,
+
+      // Reset autocomplete
+      universitySuggestions: [],
+      showUniversitySuggestions: false,
     });
   };
 
@@ -196,6 +257,7 @@ class LabForm extends React.Component {
     }
   };
 
+  // Renders a generic input, select, or textarea for most fields
   renderFormField = ({ name, label, type = "text", icon: Icon, options = null }) => {
     const error = this.state.errors[name];
     const value = this.state[name];
@@ -251,6 +313,57 @@ class LabForm extends React.Component {
     );
   };
 
+  // Specialized autocomplete field for "Associated University"
+  renderUniversityField = () => {
+    const { University, errors, universitySuggestions, showUniversitySuggestions } = this.state;
+    const error = errors.University;
+
+    return (
+        <motion.div
+            className="lab-form-field"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{ position: 'relative' }}
+        >
+          <label className="lab-form-label">
+            <UniversityIcon size={16} />
+            Associated University
+          </label>
+
+          <input
+              type="text"
+              className={`lab-form-input ${error ? 'error' : ''}`}
+              value={University}
+              onChange={this.handleUniversityChange}
+              placeholder="Start typing your university..."
+              onBlur={() => {
+                // Delay hiding suggestions to allow click on item
+                setTimeout(() => {
+                  this.setState({ showUniversitySuggestions: false });
+                }, 200);
+              }}
+          />
+
+          {showUniversitySuggestions && universitySuggestions.length > 0 && (
+              <div className="suggestions-dropdown">
+                {universitySuggestions.map((suggestion, index) => (
+                    <div
+                        key={index}
+                        className="suggestion-item"
+                        onClick={() => this.handleUniversitySuggestionClick(suggestion)}
+                    >
+                      {suggestion}
+                    </div>
+                ))}
+              </div>
+          )}
+
+          {error && <div className="lab-form-error">{error}</div>}
+        </motion.div>
+    );
+  };
+
   render() {
     return (
         <div className="lab-page-wrapper">
@@ -265,7 +378,9 @@ class LabForm extends React.Component {
               <div className="lab-form-header">
                 <div className="lab-header-content">
                   <h2 className="lab-form-title">RISE Laboratory Sign-Up</h2>
-                  <p className="lab-form-subtitle">Join us at the upcoming RISE conference</p>
+                  <p className="lab-form-subtitle">
+                    Join us at the upcoming RISE conference
+                  </p>
                 </div>
                 <div className="lab-header-decoration"></div>
               </div>
@@ -287,12 +402,9 @@ class LabForm extends React.Component {
                       icon: Users,
                       options: this.LabSizes
                     })}
-                    {this.renderFormField({
-                      name: "University",
-                      label: "Associated University",
-                      icon: UniversityIcon,
-                      options: this.University
-                    })}
+
+                    {/* Replace the old standard field with the new autocomplete field */}
+                    {this.renderUniversityField()}
                   </div>
                 </div>
 
