@@ -14,6 +14,18 @@
     margin: 0 auto;
 }
 
+.company-form-error {
+    font-size: 0.875rem;
+    display: inline-block;
+    background-color: #fff5f5;
+    color: #e53e3e;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    margin-top : 0.5rem;
+    border: 1px solid #fed7d7;
+}
+
 .company-form-container {
     background: white;
     border-radius: 16px;
@@ -66,6 +78,7 @@
     margin-bottom: 2rem;
     padding-bottom: 2rem;
     border-bottom: 1px solid #dcfce7;
+    border-color: #939393;
 }
 
 .company-section-title {

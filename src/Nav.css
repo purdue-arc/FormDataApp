@@ -8,7 +8,6 @@
 
 .nav-wrapper {
     height: var(--navbar-height);
-    margin-bottom: 1rem;
     position: sticky;
     top: 0;
     z-index: 999;

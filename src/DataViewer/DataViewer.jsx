@@ -22,14 +22,16 @@ function SubmissionModal({ isOpen, onClose, submission, getEntityName, getEntity
                 <div className="modal-details">
                     <div className="modal-section">
                         <h3>Organization Details</h3>
-                        <p><strong>Type:</strong> {submission.type.charAt(0).toUpperCase() + submission.type.slice(1)}</p>
+                        <p><strong>Type:</strong> {submission.type.charAt(0).toUpperCase() + submission.type.slice(1)}
+                        </p>
                         <p><strong>Size:</strong> {getEntitySize(submission, submission.type)}</p>
                         <p><strong>Participation Type:</strong> {submission.participationType || 'Not Specified'}</p>
                         <p><strong>Number of Representatives:</strong> {submission.numPeople}</p>
+                        {submission.University && (<p><strong>Associated University:</strong> {submission.University}</p>)}
                     </div>
 
                     <div className="modal-section">
-                        <h3>Contact Information</h3>
+                    <h3>Contact Information</h3>
                         <p><strong>Name:</strong> {submission.contactName}</p>
                         <p><strong>Email:</strong> {submission.contactEmail}</p>
                         <p><strong>Phone:</strong> {submission.contactPhoneNumber || 'N/A'}</p>
