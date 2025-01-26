@@ -10,7 +10,7 @@ import {
   UserCheck,
   Presentation,
   CheckCircle2,
-  FlaskConical
+  FlaskConical, UniversityIcon
 } from 'lucide-react';
 import emailjs from "@emailjs/browser";
 import result from "../dependentComponents/results"
@@ -20,6 +20,7 @@ class LabForm extends React.Component {
   state = {
     LabName: "",
     LabSize: "",
+    University: "",
     LabSizeKey: 0,
     LabAddress: "",
     contactName: "",
@@ -55,6 +56,7 @@ class LabForm extends React.Component {
   validationRules = {
     LabName: { required: true },
     LabAddress: { required: true },
+    University: { required: false},
     LabSize: { required: true },
     contactName: { required: true },
     contactEmail: {
@@ -128,6 +130,7 @@ class LabForm extends React.Component {
     this.setState({
       LabName: "",
       LabSize: "",
+      University: "",
       LabAddress: "",
       contactName: "",
       contactEmail: "",
@@ -283,6 +286,12 @@ class LabForm extends React.Component {
                       label: "Laboratory Size",
                       icon: Users,
                       options: this.LabSizes
+                    })}
+                    {this.renderFormField({
+                      name: "University",
+                      label: "Associated University",
+                      icon: UniversityIcon,
+                      options: this.University
                     })}
                   </div>
                 </div>

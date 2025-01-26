@@ -9,7 +9,10 @@ import {
   MessageSquare,
   UserCheck,
   Presentation,
-  CheckCircle2
+  CheckCircle2,
+  // Remove `UniversityIcon` import if you still want to use it,
+  // but we keep it here for the icon label.
+  University as UniversityIcon
 } from 'lucide-react';
 import emailjs from "@emailjs/browser";
 import result from "../dependentComponents/results"
@@ -31,7 +34,12 @@ class ClubForm extends React.Component {
     agreeToTerms: false,
     submissionSuccess: false,
     agreementError: null,
-    isLoading: false
+    isLoading: false,
+
+    // NEW: For handling the university autocomplete
+    University: "",
+    universitySuggestions: [],
+    showUniversitySuggestions: false,
   };
 
   ClubSizes = [
@@ -53,11 +61,12 @@ class ClubForm extends React.Component {
   validationRules = {
     ClubName: { required: true },
     ClubAddress: { required: true },
+    University: { required: true },
     ClubSize: { required: true },
     contactName: { required: true },
     contactEmail: {
       required: true,
-      pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+      pattern: /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,4}$/,
     },
     contactPhoneNumber: {},
     numPeople: { required: true },
@@ -91,6 +100,7 @@ class ClubForm extends React.Component {
     return null;
   };
 
+  // General input change handler for standard fields
   handleInputChange = (fieldName, event) => {
     const value = event.target.value;
     this.setState((prevState) => {
@@ -110,6 +120,58 @@ class ClubForm extends React.Component {
     });
   };
 
+  // Autocomplete-specific change handler for University
+  handleUniversityChange = (event) => {
+    const value = event.target.value;
+    // Re-use the validation logic for consistent error handling
+    this.handleInputChange("University", event);
+
+    // Fetch suggestions if at least 3 characters typed; you can tweak the threshold
+    if (value.length >= 3) {
+      fetch(`http://universities.hipolabs.com/search?name=${encodeURIComponent(value)}`)
+          .then((res) => res.json())
+          .then((data) => {
+            // The API returns an array of objects, each with a "name" field
+            const suggestions = data.map((uni) => uni.name);
+            this.setState({
+              universitySuggestions: suggestions,
+              showUniversitySuggestions: true,
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching university suggestions:", error);
+          });
+    } else {
+      // Hide suggestions if input is too short
+      this.setState({
+        universitySuggestions: [],
+        showUniversitySuggestions: false,
+      });
+    }
+  };
+
+  // When a user clicks on a suggestion
+  handleUniversitySuggestionClick = (suggestion) => {
+    // Set the field value to the selected suggestion
+    this.setState((prevState) => {
+      const updatedErrors = { ...prevState.errors };
+      const fieldError = this.validateField("University", suggestion);
+
+      if (fieldError) {
+        updatedErrors["University"] = fieldError;
+      } else {
+        delete updatedErrors["University"];
+      }
+
+      return {
+        University: suggestion,
+        errors: updatedErrors,
+        showUniversitySuggestions: false,
+      };
+    });
+  };
+
+  // Validate all fields at once
   validateAllFields = () => {
     const errors = {};
     Object.keys(this.validationRules).forEach((fieldName) => {
@@ -125,6 +187,7 @@ class ClubForm extends React.Component {
     this.setState({
       ClubName: "",
       ClubSize: "",
+      University: "",
       ClubAddress: "",
       contactName: "",
       contactEmail: "",
@@ -136,6 +199,9 @@ class ClubForm extends React.Component {
       agreeToTerms: false,
       submissionSuccess: true,
       ClubSizeKey: this.state.ClubSizeKey + 1,
+      // Reset autocomplete state
+      universitySuggestions: [],
+      showUniversitySuggestions: false,
     });
   };
 
@@ -160,7 +226,7 @@ class ClubForm extends React.Component {
     }
 
     try {
-      // Send email notification
+      // Send email notification (just an example)
       await emailjs.send(
           "service_qihbyx6",
           "template_a5focee",
@@ -170,7 +236,7 @@ class ClubForm extends React.Component {
           "EaeoNuUi1ZMFCIeI9"
       );
 
-      // Submit form data
+      // Submit form data to your backend
       const response = await result.post('/clubs.json', {
         ...this.state,
         submittedAt: new Date().toISOString()
@@ -178,6 +244,7 @@ class ClubForm extends React.Component {
 
       if (response.status === 200) {
         this.setState({ submissionSuccess: true });
+        // Reset form after a short delay
         setTimeout(this.resetForm, 1000);
       }
     } catch (error) {
@@ -190,6 +257,7 @@ class ClubForm extends React.Component {
     }
   };
 
+  // Renders an input, select, or textarea for most fields
   renderFormField = ({ name, label, type = "text", icon: Icon, options = null }) => {
     const error = this.state.errors[name];
     const value = this.state[name];
@@ -245,6 +313,58 @@ class ClubForm extends React.Component {
     );
   };
 
+  // Specialized autocomplete field for "University"
+  renderUniversityField = () => {
+    const { University, errors, universitySuggestions, showUniversitySuggestions } = this.state;
+    const error = errors.University;
+
+    return (
+        <motion.div
+            className="club-form-field"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{ position: "relative" }} // so the dropdown can position correctly
+        >
+          <label className="club-form-label">
+            <UniversityIcon size={16} />
+            University
+          </label>
+
+          <input
+              type="text"
+              className={`club-form-input ${error ? 'error' : ''}`}
+              value={University}
+              onChange={this.handleUniversityChange}
+              placeholder="Start typing your university..."
+              // If you want to close suggestions on blur, you can do:
+              onBlur={() => {
+                // Delay hiding suggestions to allow click on item
+                setTimeout(() => {
+                  this.setState({ showUniversitySuggestions: false });
+                }, 200);
+              }}
+          />
+
+          {showUniversitySuggestions && universitySuggestions.length > 0 && (
+              <div className="suggestions-dropdown">
+                {universitySuggestions.map((suggestion, index) => (
+                    <div
+                        key={index}
+                        className="suggestion-item"
+                        onClick={() => this.handleUniversitySuggestionClick(suggestion)}
+                    >
+                      {suggestion}
+                    </div>
+                ))}
+              </div>
+          )}
+
+          {error && <div className="club-form-error">{error}</div>}
+        </motion.div>
+    );
+  };
+
   render() {
     return (
         <div className="club-page-wrapper">
@@ -281,6 +401,9 @@ class ClubForm extends React.Component {
                       icon: Users,
                       options: this.ClubSizes
                     })}
+
+                    {/* Replace the old select code with the new University autocomplete */}
+                    {this.renderUniversityField()}
                   </div>
                 </div>
 
