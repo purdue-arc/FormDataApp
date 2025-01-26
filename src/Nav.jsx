@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Menu, X, Building2, Users, Home, Database } from 'lucide-react';
 import "./Nav.css";
 import logo from "./riselogo.png";
+import { Link } from 'react-router-dom';
 
 const NavLinks = () => (
     <>
@@ -92,7 +93,9 @@ const Navbar = () => {
                         className="navbar-links_logo"
                         whileHover={{ scale: 1.02 }}
                     >
-                        <img src={logo} alt="RISE_Logo" />
+                        <Link to="/">
+                            <img src={logo} alt="RISE_Logo" />
+                        </Link>
                     </motion.div>
                     <motion.div
                         className="navbar-links_container"
