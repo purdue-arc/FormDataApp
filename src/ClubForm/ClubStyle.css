@@ -66,6 +66,7 @@
     margin-bottom: 2rem;
     padding-bottom: 2rem;
     border-bottom: 1px solid #ffedd5;
+    border-color: #939393;
 }
 
 .club-form-section:last-child {
@@ -247,12 +248,14 @@
 
 /* Error States */
 .club-form-error {
-    color: #ef4444;
-    font-size: 0.875rem;
-    margin-top: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    display: inline-block;
+    background-color: #fff5f5;
+    color: #e53e3e;
+    padding: 0.5rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    margin-top : 0.5rem;
+    border: 1px solid #fed7d7;
 }
 
 .club-form-input.error,

@@ -74,11 +74,23 @@ class ClubForm extends React.Component {
     comments: {}
   };
 
+  field_to_name = {
+    ClubName: "Club Name",
+    ClubSize: "Club Size",
+    ClubAddress: "Club Address",
+    contactName: "Contact Name",
+    contactEmail: "Contact Email",
+    contactPhoneNumber: "Contact Phone",
+    numPeople: "Number of People",
+    participationType: "Participation Type",
+    comments: "Comments"
+  };
+
   validateField = (fieldName, value = this.state[fieldName]) => {
     const rules = this.validationRules[fieldName];
 
     if (rules.required && (!value || value.trim() === "")) {
-      return `${fieldName} is required`;
+      return `"${this.field_to_name[fieldName]}" is required`;
     }
 
     if (rules.pattern && !rules.pattern.test(value)) {
@@ -257,13 +269,14 @@ class ClubForm extends React.Component {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
         >
-          <label className="club-form-label">
+          <label htmlFor={name} className="club-form-label">
             {Icon && <Icon size={16} />}
             {label}
           </label>
 
           {options ? (
               <select
+                  id={name}
                   className="club-form-select"
                   value={value}
                   onChange={(e) => this.handleInputChange(name, e)}
@@ -277,6 +290,7 @@ class ClubForm extends React.Component {
               </select>
           ) : type === "textarea" ? (
               <textarea
+                  id={name}
                   className={`club-form-textarea ${error ? 'error' : ''}`}
                   value={value}
                   onChange={(e) => this.handleInputChange(name, e)}
@@ -285,6 +299,7 @@ class ClubForm extends React.Component {
               />
           ) : (
               <input
+                  id={name}
                   type={type}
                   className={`club-form-input ${error ? 'error' : ''}`}
                   value={value}
