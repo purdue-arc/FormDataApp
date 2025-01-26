@@ -65,11 +65,23 @@ class CompanyForm extends React.Component {
     comments: {}
   };
 
+  field_to_name = {
+    companyName: "Company Name",
+    companySize: "Company Size",
+    companyAddress: "Company Address",
+    contactName: "Contact Name",
+    contactEmail: "Contact Email",
+    contactPhoneNumber: "Contact Phone",
+    numPeople: "Number of People",
+    participationType: "Participation Type",
+    comments: "Comments"
+  };
+
   validateField = (fieldName, value = this.state[fieldName]) => {
     const rules = this.validationRules[fieldName];
 
     if (rules.required && (!value || value.trim() === "")) {
-      return `${fieldName} is required`;
+      return `"${this.field_to_name[fieldName]}" is required`;
     }
 
     if (rules.pattern && !rules.pattern.test(value)) {

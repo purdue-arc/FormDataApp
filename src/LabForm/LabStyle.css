@@ -14,6 +14,17 @@
     margin: 0 auto;
 }
 
+.lab-form-error {
+    display: inline-block;
+    background-color: #fff5f5;
+    color: #e53e3e;
+    padding: 0.5rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    margin-top : 0.5rem;
+    border: 1px solid #fed7d7;
+}
+
 .lab-form-container {
     background: white;
     border-radius: 16px;
