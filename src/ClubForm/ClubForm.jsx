@@ -201,13 +201,14 @@ class ClubForm extends React.Component {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
         >
-          <label className="club-form-label">
+          <label htmlFor={name} className="club-form-label">
             {Icon && <Icon size={16} />}
             {label}
           </label>
 
           {options ? (
               <select
+                  id={name}
                   className="club-form-select"
                   value={value}
                   onChange={(e) => this.handleInputChange(name, e)}
@@ -221,6 +222,7 @@ class ClubForm extends React.Component {
               </select>
           ) : type === "textarea" ? (
               <textarea
+                  id={name}
                   className={`club-form-textarea ${error ? 'error' : ''}`}
                   value={value}
                   onChange={(e) => this.handleInputChange(name, e)}
@@ -229,6 +231,7 @@ class ClubForm extends React.Component {
               />
           ) : (
               <input
+                  id={name}
                   type={type}
                   className={`club-form-input ${error ? 'error' : ''}`}
                   value={value}

@@ -204,13 +204,14 @@ class LabForm extends React.Component {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
         >
-          <label className="lab-form-label">
+          <label htmlFor={name} className="lab-form-label">
             {Icon && <Icon size={16} />}
             {label}
           </label>
 
           {options ? (
               <select
+                  id={name}
                   className="lab-form-select"
                   value={value}
                   onChange={(e) => this.handleInputChange(name, e)}
@@ -224,6 +225,7 @@ class LabForm extends React.Component {
               </select>
           ) : type === "textarea" ? (
               <textarea
+                  id={name}
                   className={`lab-form-textarea ${error ? 'error' : ''}`}
                   value={value}
                   onChange={(e) => this.handleInputChange(name, e)}
@@ -232,6 +234,7 @@ class LabForm extends React.Component {
               />
           ) : (
               <input
+                  id={name}
                   type={type}
                   className={`lab-form-input ${error ? 'error' : ''}`}
                   value={value}
