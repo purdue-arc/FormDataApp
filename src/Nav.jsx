@@ -1,66 +1,133 @@
-import React, { useState } from "react";
-import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
+import React, { useState, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Menu, X, Building2, Users, Home, Database } from 'lucide-react';
 import "./Nav.css";
-import logo from "./riselogo.png"
+import logo from "./riselogo.png";
 
-const Menu = () => (
+const NavLinks = () => (
     <>
-        <p>
-            <a style={{color: "#ffffff", textDecoration: "none"}} href="company">Company</a>
-        </p>
-        <p>
-            <a style={{color: "#ffffff", textDecoration: "none"}} href="club">Club</a>
-        </p>
-        <p>
-            <a style={{color: "#ffffff", textDecoration: "none"}} href="lab">Lab</a>
-        </p>
-        <p>
-            <a style={{color: "#ffffff", textDecoration: "none"}} href="viewer">View Data</a>
-        </p>
+        <motion.p whileHover={{ scale: 1.02 }}>
+            <a href="company">
+                <Building2 size={18} />
+                Company
+            </a>
+        </motion.p>
+        <motion.p whileHover={{ scale: 1.02 }}>
+            <a href="club">
+                <Users size={18} />
+                Club
+            </a>
+        </motion.p>
+        <motion.p whileHover={{ scale: 1.02 }}>
+            <a href="lab">
+                <Home size={18} />
+                Lab
+            </a>
+        </motion.p>
+        <motion.p whileHover={{ scale: 1.02 }}>
+            <a href="viewer">
+                <Database size={18} />
+                View Data
+            </a>
+        </motion.p>
     </>
 );
 
 const Navbar = () => {
-    const [toggleMenu, setToggleMenu] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const { scrollY } = useScroll();
+
+    // Transform values based on scroll with a longer range
+    const borderRadius = useTransform(
+        scrollY,
+        [20, 220], // Increased range for more gradual effect
+        [0, 10]   // Max border radius slightly reduced
+    );
+
+    const width = useTransform(
+        scrollY,
+        [20, 220],
+        ["100vw", "94vw"]
+    );
+
+    const height = useTransform(
+        scrollY,
+        [20, 220],
+        ["6rem", "5rem"]
+    );
+
+    const xOffset = useTransform(
+        scrollY,
+        [20, 220],
+        ["0vw", "3vw"] // This controls the left position
+    );
+
+    const yOffset = useTransform(
+        scrollY,
+        [20, 220],
+        ["0vh", "0.8vh"] // This controls the left position
+    );
+
     return (
-        <div className="gpt3__navbar">
-            <div className="gpt3__navbar-links">
-                <div className="gpt3__navbar-links_logo">
-                    <img
-                        src={logo} alt={"RISE_Logo"}
-                        />
+        <div className="nav-wrapper">
+            <motion.div
+                className="navbar"
+                style={{
+                    borderRadius,
+                    width,
+                    height,
+                    left: xOffset,
+                    top: yOffset
+                }}
+                initial={{ y: -100 }}
+                animate={{ y: 0 }}
+                transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 30
+                }}
+            >
+                <div className="navbar-links">
+                    <motion.div
+                        className="navbar-links_logo"
+                        whileHover={{ scale: 1.02 }}
+                    >
+                        <img src={logo} alt="RISE_Logo" />
+                    </motion.div>
+                    <motion.div
+                        className="navbar-links_container"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.2 }}
+                    >
+                        <NavLinks />
+                    </motion.div>
                 </div>
-                <div className="gpt3__navbar-links_container">
-                    <Menu />
+                <div className="navbar-menu">
+                    <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                    >
+                        {isOpen ? (
+                            <X color="#fff" size={27} onClick={() => setIsOpen(false)} />
+                        ) : (
+                            <Menu color="#fff" size={27} onClick={() => setIsOpen(true)} />
+                        )}
+                    </motion.div>
+
+                    {isOpen && (
+                        <motion.div
+                            className="navbar-menu_container"
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        >
+                            <NavLinks />
+                        </motion.div>
+                    )}
                 </div>
-            </div>
-            <div className="gpt3__navbar-sign">
-            </div>
-            <div className="gpt3__navbar-menu">
-                {toggleMenu ?
-                    <RiCloseLine
-                        color="#fff"
-                        size={27}
-                        onClick={() => setToggleMenu(false)}
-                    />
-                    :
-                    <RiMenu3Line
-                        color="#fff"
-                        size={27}
-                        onClick={() => setToggleMenu(true)}
-                    />
-                }
-
-                {toggleMenu && (
-                    <div className="gpt3__navbar-menu_container scale-up-center">
-                        <div className="gpt3__navbar-menu_container-links"></div>
-                        <Menu />
-
-                        <div className="gpt3__navbar-menu-container-links-sign">
-                        </div>
-                    </div>
-                )}
-            </div>
+            </motion.div>
         </div>
     );
 };
