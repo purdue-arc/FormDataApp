@@ -15,10 +15,11 @@
 }
 
 .lab-form-error {
+    font-size: 0.875rem;
     display: inline-block;
     background-color: #fff5f5;
     color: #e53e3e;
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
     border-radius: 8px;
     margin-bottom: 0.5rem;
     margin-top : 0.5rem;

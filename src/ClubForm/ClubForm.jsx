@@ -90,7 +90,7 @@ class ClubForm extends React.Component {
     const rules = this.validationRules[fieldName];
 
     if (rules.required && (!value || value.trim() === "")) {
-      return `"${this.field_to_name[fieldName]}" is required`;
+      return `${this.field_to_name[fieldName]} is required`;
     }
 
     if (rules.pattern && !rules.pattern.test(value)) {
@@ -261,6 +261,7 @@ class ClubForm extends React.Component {
   renderFormField = ({ name, label, type = "text", icon: Icon, options = null }) => {
     const error = this.state.errors[name];
     const value = this.state[name];
+    const isRequired = this.validationRules[name].required;
 
     return (
         <motion.div
@@ -271,7 +272,7 @@ class ClubForm extends React.Component {
         >
           <label htmlFor={name} className="club-form-label">
             {Icon && <Icon size={16} />}
-            {label}
+            {label} {isRequired && <span className="text-red-500">*</span>}
           </label>
 
           {options ? (
