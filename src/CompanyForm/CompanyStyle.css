@@ -15,6 +15,7 @@
 }
 
 .company-form-error {
+    font-size: 0.875rem;
     display: inline-block;
     background-color: #fff5f5;
     color: #e53e3e;
