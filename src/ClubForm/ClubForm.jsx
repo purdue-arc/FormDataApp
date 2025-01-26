@@ -9,7 +9,7 @@ import {
   MessageSquare,
   UserCheck,
   Presentation,
-  CheckCircle2
+  CheckCircle2, UniversityIcon
 } from 'lucide-react';
 import emailjs from "@emailjs/browser";
 import result from "../dependentComponents/results"
@@ -53,6 +53,7 @@ class ClubForm extends React.Component {
   validationRules = {
     ClubName: { required: true },
     ClubAddress: { required: true },
+    University: { required: true },
     ClubSize: { required: true },
     contactName: { required: true },
     contactEmail: {
@@ -113,6 +114,7 @@ class ClubForm extends React.Component {
     this.setState({
       ClubName: "",
       ClubSize: "",
+      University: "",
       ClubAddress: "",
       contactName: "",
       contactEmail: "",
@@ -265,6 +267,12 @@ class ClubForm extends React.Component {
                       label: "Club Size",
                       icon: Users,
                       options: this.ClubSizes
+                    })}
+                    {this.renderFormField({
+                      name: "University",
+                      label: "University",
+                      icon: UniversityIcon,
+                      options: this.University
                     })}
                   </div>
                 </div>
