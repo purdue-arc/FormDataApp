@@ -65,11 +65,23 @@ class CompanyForm extends React.Component {
     comments: {}
   };
 
+  field_to_name = {
+    companyName: "Company Name",
+    companySize: "Company Size",
+    companyAddress: "Company Address",
+    contactName: "Contact Name",
+    contactEmail: "Contact Email",
+    contactPhoneNumber: "Contact Phone",
+    numPeople: "Number of People",
+    participationType: "Participation Type",
+    comments: "Comments"
+  };
+
   validateField = (fieldName, value = this.state[fieldName]) => {
     const rules = this.validationRules[fieldName];
 
     if (rules.required && (!value || value.trim() === "")) {
-      return `${fieldName} is required`;
+      return `${this.field_to_name[fieldName]} is required`;
     }
 
     if (rules.pattern && !rules.pattern.test(value)) {
@@ -177,6 +189,7 @@ class CompanyForm extends React.Component {
   renderFormField = ({ name, label, type = "text", icon: Icon, options = null }) => {
     const error = this.state.errors[name];
     const value = this.state[name];
+    const isRequired = this.validationRules[name].required;
 
     return (
         <motion.div
@@ -185,13 +198,14 @@ class CompanyForm extends React.Component {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
         >
-          <label className="company-form-label">
+          <label htmlFor={name} className="company-form-label">
             {Icon && <Icon size={16} />}
-            {label}
+            {label} {isRequired && <span className="text-red-500">*</span>}
           </label>
 
           {options ? (
               <select
+                  id={name}
                   className="company-form-select"
                   value={value}
                   onChange={(e) => this.handleInputChange(name, e)}
@@ -205,6 +219,7 @@ class CompanyForm extends React.Component {
               </select>
           ) : type === "textarea" ? (
               <textarea
+                  id={name}
                   className={`company-form-textarea ${error ? 'error' : ''}`}
                   value={value}
                   onChange={(e) => this.handleInputChange(name, e)}
@@ -213,6 +228,7 @@ class CompanyForm extends React.Component {
               />
           ) : (
               <input
+                  id={name}
                   type={type}
                   className={`company-form-input ${error ? 'error' : ''}`}
                   value={value}
