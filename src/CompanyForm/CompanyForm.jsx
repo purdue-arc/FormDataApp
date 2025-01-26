@@ -72,7 +72,7 @@ class CompanyForm extends React.Component {
     contactName: "Contact Name",
     contactEmail: "Contact Email",
     contactPhoneNumber: "Contact Phone",
-    numPeople: "Number of People",
+    numPeople: "Number of Representatives",
     participationType: "Participation Type",
     comments: "Comments"
   };

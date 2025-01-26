@@ -75,13 +75,13 @@ class LabForm extends React.Component {
   };
 
   field_to_name = {
-    LabName: "Lab Name",
-    LabSize: "Lab Size",
-    LabAddress: "Lab Address",
-    contactName: "Contact Name",
+    LabName: "Laboratory Name",
+    LabSize: "Laboratory Size",
+    LabAddress: "Laboratory Location",
+    contactName: "Principal Investigator",
     contactEmail: "Contact Email",
     contactPhoneNumber: "Contact Phone Number",
-    numPeople: "Number of People",
+    numPeople: "Number of Representatives",
     participationType: "Participation Type",
     comments: "Comments",
     University: "Associated University"
