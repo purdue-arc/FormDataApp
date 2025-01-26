@@ -72,9 +72,9 @@ class CompanyForm extends React.Component {
     contactName: "Contact Name",
     contactEmail: "Contact Email",
     contactPhoneNumber: "Contact Phone",
-    numPeople: "Number of Representatives",
+    numPeople: "Number of People",
     participationType: "Participation Type",
-    comments: "Additional Comments"
+    comments: "Comments"
   };
 
   validateField = (fieldName, value = this.state[fieldName]) => {
