@@ -83,18 +83,19 @@ class ClubForm extends React.Component {
     contactPhoneNumber: "Contact Phone",
     numPeople: "Number of Representatives",
     participationType: "Participation Type",
-    comments: "Comments"
+    comments: "Comments",
+    University: "University",
   };
 
   validateField = (fieldName, value = this.state[fieldName]) => {
     const rules = this.validationRules[fieldName];
 
     if (rules.required && (!value || value.trim() === "")) {
-      return `${this.field_to_name[fieldName]} is required`;
+      return `${this.field_to_name[fieldName]} is required.`;
     }
 
     if (rules.pattern && !rules.pattern.test(value)) {
-      return `Please enter a valid ${fieldName}`;
+      return `Please enter a valid ${this.field_to_name[fieldName].toLowerCase()}.`;
     }
 
     return null;
@@ -327,12 +328,14 @@ class ClubForm extends React.Component {
             transition={{ duration: 0.3 }}
             style={{ position: "relative" }} // so the dropdown can position correctly
         >
-          <label className="club-form-label">
+          <label htmlFor={"University"} className="club-form-label">
             <UniversityIcon size={16} />
             University
+            <span className="text-red-500">*</span>
           </label>
 
           <input
+              id={"University"}
               type="text"
               className={`club-form-input ${error ? 'error' : ''}`}
               value={University}

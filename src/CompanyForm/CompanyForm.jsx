@@ -81,11 +81,11 @@ class CompanyForm extends React.Component {
     const rules = this.validationRules[fieldName];
 
     if (rules.required && (!value || value.trim() === "")) {
-      return `${this.field_to_name[fieldName]} is required`;
+      return `${this.field_to_name[fieldName]} is required.`;
     }
 
     if (rules.pattern && !rules.pattern.test(value)) {
-      return `Please enter a valid ${fieldName}`;
+      return `Please enter a valid ${this.field_to_name[fieldName].toLowerCase()}.`;
     }
 
     return null;
