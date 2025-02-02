@@ -14,6 +14,7 @@ import {
 import emailjs from "@emailjs/browser";
 import result from "../dependentComponents/results"
 import './CompanyStyle.css';
+import FileUploadComponent from "../ContentUpload";
 
 class CompanyForm extends React.Component {
   state = {
@@ -300,7 +301,6 @@ class CompanyForm extends React.Component {
                     })}
                   </div>
                 </div>
-
                 <div className="company-form-section">
                   <h3 className="company-section-title">Participation Details</h3>
                   <div className="company-form-grid">
@@ -345,7 +345,7 @@ class CompanyForm extends React.Component {
                           id="agreement"
                           className="company-form-checkbox"
                           checked={this.state.agreeToTerms}
-                          onChange={(e) => this.setState({ agreeToTerms: e.target.checked })}
+                          onChange={(e) => this.setState({agreeToTerms: e.target.checked})}
                       />
                       <label htmlFor="agreement" className="checkbox-label">
                         I confirm our company's commitment to participate in the RISE conference
@@ -355,9 +355,9 @@ class CompanyForm extends React.Component {
                   <AnimatePresence>
                     {this.state.agreementError && (
                         <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
+                            initial={{opacity: 0, height: 0}}
+                            animate={{opacity: 1, height: "auto"}}
+                            exit={{opacity: 0, height: 0}}
                             className="company-form-error"
                         >
                           {this.state.agreementError}
@@ -366,19 +366,24 @@ class CompanyForm extends React.Component {
                   </AnimatePresence>
                 </div>
 
+                <div className="company-form-section">
+                  <h3 className="company-section-title">Upload Content</h3>
+                  <FileUploadComponent/>
+                </div>
+
                 <div className="company-form-submit-wrapper">
                   <motion.button
                       type="submit"
                       className={`company-form-submit ${this.state.isLoading ? 'loading' : ''}`}
                       disabled={this.state.isLoading}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                      whileHover={{scale: 1.02}}
+                      whileTap={{scale: 0.98}}
                   >
                     {this.state.isLoading ? (
                         <span className="loading-text">
                       <motion.span
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          animate={{rotate: 360}}
+                          transition={{duration: 1, repeat: Infinity, ease: "linear"}}
                           className="loading-icon"
                       >
                         ⭮
@@ -395,8 +400,8 @@ class CompanyForm extends React.Component {
               <AnimatePresence>
                 {this.state.submissionSuccess && (
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
+                        initial={{opacity: 0, scale: 0.9}}
+                        animate={{opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
                         className="company-form-success"
                     >

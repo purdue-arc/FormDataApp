@@ -16,6 +16,7 @@ import {
 import emailjs from "@emailjs/browser";
 import result from "../dependentComponents/results";
 import './LabStyle.css';
+import FileUploadComponent from "../ContentUpload";
 
 class LabForm extends React.Component {
   state = {
@@ -480,7 +481,7 @@ class LabForm extends React.Component {
                           id="agreement"
                           className="lab-form-checkbox"
                           checked={this.state.agreeToTerms}
-                          onChange={(e) => this.setState({ agreeToTerms: e.target.checked })}
+                          onChange={(e) => this.setState({agreeToTerms: e.target.checked})}
                       />
                       <label htmlFor="agreement" className="checkbox-label">
                         I confirm our laboratory's commitment to participate in the RISE conference
@@ -490,9 +491,9 @@ class LabForm extends React.Component {
                   <AnimatePresence>
                     {this.state.agreementError && (
                         <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
+                            initial={{opacity: 0, height: 0}}
+                            animate={{opacity: 1, height: "auto"}}
+                            exit={{opacity: 0, height: 0}}
                             className="lab-form-error"
                         >
                           {this.state.agreementError}
@@ -501,20 +502,25 @@ class LabForm extends React.Component {
                   </AnimatePresence>
                 </div>
 
+                <div className="lab-form-section">
+                  <h3 className="lab-section-title">Upload Content</h3>
+                  <FileUploadComponent/>
+                </div>
+
                 {/* Submit Button */}
                 <div className="lab-form-submit-wrapper">
                   <motion.button
                       type="submit"
                       className={`lab-form-submit ${this.state.isLoading ? 'loading' : ''}`}
                       disabled={this.state.isLoading}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                      whileHover={{scale: 1.02}}
+                      whileTap={{scale: 0.98}}
                   >
                     {this.state.isLoading ? (
                         <span className="loading-text">
                       <motion.span
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          animate={{rotate: 360}}
+                          transition={{duration: 1, repeat: Infinity, ease: "linear"}}
                           className="loading-icon"
                       >
                         ⭮
@@ -532,7 +538,7 @@ class LabForm extends React.Component {
               <AnimatePresence>
                 {this.state.submissionSuccess && (
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
+                        initial={{opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
                         className="lab-form-success"
