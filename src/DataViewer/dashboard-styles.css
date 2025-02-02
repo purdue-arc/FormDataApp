@@ -449,18 +449,41 @@ body {
     }
 }
 
-.form-input:hover {
+.form-input {
+    border-width: 1.5px;
     border-color: #cbd5e1;
+    width: 100%;
+    border-radius: 10px;
+    padding: 5px;
+}
+.form-input:hover {
+    border-width: 1.5px;
+    border-color: black;
+    width: 100%;
+    border-radius: 10px;
+    padding: 5px;
+}
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
 }
 
 .form-input:focus {
-    outline: none;
     border-color: var(--primary-blue);
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 .btn {
     width: 100%;
+    margin-top: 30px;
     padding: 0.75rem 1.5rem;
     font-size: 0.875rem;
     font-weight: 500;
