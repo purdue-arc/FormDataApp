@@ -286,7 +286,7 @@ export default function SubmissionsDashboard() {
                             onClick={togglePasswordVisibility}
                             className="eye-icon"
                         >
-                            {passwordVisible ? <Eye/>: <EyeClosed/>}
+                            {passwordVisible ? <Eye strokeWidth="1px" size="20px"/>: <EyeClosed strokeWidth="1px" size="20px"/>}
                         </span>
                     </div>
                     <button type="submit" className="btn">Login</button>
