@@ -17,7 +17,7 @@ import {
 import emailjs from "@emailjs/browser";
 import result from "../dependentComponents/results"
 import './ClubStyle.css';
-import FileUploadComponent from "../ContentUpload";
+import FileUploadComponent from "../ContentUpload/ContentUpload";
 
 class ClubForm extends React.Component {
   state = {

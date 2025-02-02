@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
-import { useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
-function FileUploadComponent() {
+const FileUploadComponent = ({ color = "blue" }) => {
     const fileInputRef = useRef(null);
     const [previewURL, setPreviewURL] = useState(null);
     const [fileType, setFileType] = useState(null);
@@ -14,13 +14,11 @@ function FileUploadComponent() {
         };
     }, [previewURL]);
 
-    // Function to open the file explorer when the button is clicked
     const openFileExplorer = () => {
         console.log("Button clicked");
         fileInputRef.current?.click();
     };
 
-    // Function to handle file selection
     const handleFileSelect = (event) => {
         console.log("File input changed");
         const file = event.target.files && event.target.files[0];
@@ -48,15 +46,21 @@ function FileUploadComponent() {
             <input
                 type="file"
                 ref={fileInputRef}
-                style={{display: "none"}}
+                style={{ display: "none" }}
                 onChange={handleFileSelect}
                 accept="image/*,video/*"
             />
 
             {/* Button to open file explorer */}
-            <button type="button" onClick={openFileExplorer}>
+            <motion.button
+                type="button"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={openFileExplorer}
+                style={{ backgroundColor: color }} // Directly set the background color here
+            >
                 Add Content
-            </button>
+            </motion.button>
 
             {/* Preview Section */}
             {previewURL && fileType && (
@@ -79,6 +83,6 @@ function FileUploadComponent() {
             )}
         </div>
     );
-}
+};
 
 export default FileUploadComponent;

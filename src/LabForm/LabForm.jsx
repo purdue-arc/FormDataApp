@@ -16,7 +16,7 @@ import {
 import emailjs from "@emailjs/browser";
 import result from "../dependentComponents/results";
 import './LabStyle.css';
-import FileUploadComponent from "../ContentUpload";
+import FileUploadComponent from "../ContentUpload/ContentUpload";
 
 class LabForm extends React.Component {
   state = {
@@ -501,9 +501,7 @@ class LabForm extends React.Component {
                     )}
                   </AnimatePresence>
                 </div>
-
-                <div className="lab-form-section">
-                  <h3 className="lab-section-title">Upload Content</h3>
+                <div className="content-upload">
                   <FileUploadComponent/>
                 </div>
 

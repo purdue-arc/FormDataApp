@@ -175,6 +175,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    margin-top: 20px;
 }
 
 .lab-form-submit:hover {

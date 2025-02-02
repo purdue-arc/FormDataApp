@@ -14,7 +14,7 @@ import {
 import emailjs from "@emailjs/browser";
 import result from "../dependentComponents/results"
 import './CompanyStyle.css';
-import FileUploadComponent from "../ContentUpload";
+import FileUploadComponent from "../ContentUpload/ContentUpload";
 
 class CompanyForm extends React.Component {
   state = {
