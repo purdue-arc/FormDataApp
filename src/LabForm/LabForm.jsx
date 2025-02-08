@@ -28,7 +28,7 @@ class LabForm extends React.Component {
     contactEmail: "",
     contactPhoneNumber: "",
     numPeople: "",
-    participationType: "",
+    participationType: [], // modified from "" to an empty array
     comments: "",
     errors: {},
     agreeToTerms: false,
@@ -89,6 +89,14 @@ class LabForm extends React.Component {
 
   validateField = (fieldName, value = this.state[fieldName]) => {
     const rules = this.validationRules[fieldName];
+
+    // Special handling for participationType since it is now an array.
+    if (fieldName === "participationType") {
+      if (rules.required && (!value || value.length === 0)) {
+        return `${this.field_to_name[fieldName]} is required.`;
+      }
+      return null;
+    }
 
     if (rules.required && (!value || value.trim() === "")) {
       return `${this.field_to_name[fieldName]} is required.`;
@@ -172,6 +180,32 @@ class LabForm extends React.Component {
     });
   };
 
+  // New handler for the participationType checkboxes.
+  handleParticipationTypeChange = (value, event) => {
+    const checked = event.target.checked;
+    this.setState(prevState => {
+      let newParticipationTypes = [...prevState.participationType];
+      if (checked) {
+        if (!newParticipationTypes.includes(value)) {
+          newParticipationTypes.push(value);
+        }
+      } else {
+        newParticipationTypes = newParticipationTypes.filter(item => item !== value);
+      }
+      const updatedErrors = { ...prevState.errors };
+      const error = this.validateField("participationType", newParticipationTypes);
+      if (error) {
+        updatedErrors["participationType"] = error;
+      } else {
+        delete updatedErrors["participationType"];
+      }
+      return {
+        participationType: newParticipationTypes,
+        errors: updatedErrors
+      };
+    });
+  };
+
   validateAllFields = () => {
     const errors = {};
     Object.keys(this.validationRules).forEach((fieldName) => {
@@ -193,7 +227,7 @@ class LabForm extends React.Component {
       contactEmail: "",
       contactPhoneNumber: "",
       numPeople: "",
-      participationType: "",
+      participationType: [], // reset as an empty array
       comments: "",
       errors: {},
       agreeToTerms: false,
@@ -237,11 +271,16 @@ class LabForm extends React.Component {
           "EaeoNuUi1ZMFCIeI9"
       );
 
-      // Submit form data
-      const response = await result.post('/labs.json', {
-        ...this.state,
+      // Modify the data for firebase: convert participationType from an array to a comma‐separated string.
+      const { participationType, ...otherState } = this.state;
+      const submissionData = {
+        ...otherState,
+        participationType: participationType.join(', '),
         submittedAt: new Date().toISOString()
-      });
+      };
+
+      // Submit form data
+      const response = await result.post('/labs.json', submissionData);
 
       if (response.status === 200) {
         this.setState({ submissionSuccess: true });
@@ -262,6 +301,41 @@ class LabForm extends React.Component {
     const error = this.state.errors[name];
     const value = this.state[name];
     const isRequired = this.validationRules[name].required;
+
+    // Custom rendering for the participationType field as a group of modern checkboxes.
+    if (name === "participationType") {
+      return (
+          <motion.div
+              className="lab-form-field"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+          >
+            <label htmlFor={name} className="lab-form-label">
+              {Icon && <Icon size={16} />}
+              {label} {isRequired && <span className="text-red-500">*</span>}
+            </label>
+            <div className="lab-form-checkbox-group">
+              {this.participationTypes.map(opt => (
+                  <div key={opt.value} className="checkbox-container">
+                    <input
+                        type="checkbox"
+                        id={`participationType-${opt.value}`}
+                        className="lab-form-checkbox"
+                        value={opt.value}
+                        checked={this.state.participationType.includes(opt.value)}
+                        onChange={(e) => this.handleParticipationTypeChange(opt.value, e)}
+                    />
+                    <label htmlFor={`participationType-${opt.value}`} className="checkbox-label">
+                      {opt.label}
+                    </label>
+                  </div>
+              ))}
+            </div>
+            {error && <div className="lab-form-error">{error}</div>}
+          </motion.div>
+      );
+    }
 
     return (
         <motion.div
@@ -512,15 +586,15 @@ class LabForm extends React.Component {
                   >
                     {this.state.isLoading ? (
                         <span className="loading-text">
-                      <motion.span
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                          className="loading-icon"
-                      >
-                        ⭮
-                      </motion.span>
-                      Submitting...
-                    </span>
+                          <motion.span
+                              animate={{ rotate: 360 }}
+                              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                              className="loading-icon"
+                          >
+                            ⭮
+                          </motion.span>
+                          Submitting...
+                        </span>
                     ) : (
                         "Submit Application"
                     )}

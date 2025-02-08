@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="20c62084-0d88-435b-a48f-2bb0c5a4d53f" name="Changes" comment="State dropdown saves to variable">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Nav.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Nav.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Nav.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Nav.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ClubForm/ClubForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClubForm/ClubForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CompanyForm/CompanyForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompanyForm/CompanyForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LabForm/LabForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/LabForm/LabForm.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,12 +24,33 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="rise3-logo" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;EdgarBabajanyan&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/purdue-arc/FormDataApp.git&quot;,
+    &quot;accountId&quot;: &quot;5b679b29-bec2-4725-8225-1e26752e5d75&quot;
+  }
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2XJx1JT9G1iPEtM31ZXQP8In8xl" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -39,8 +61,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "multiApp",
-    "last_opened_file_path": "C:/Users/bedga/WebstormProjects/rise",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/bedga/WebstormProjects/FormDataApp",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -71,8 +93,16 @@
     <recent_temporary>
       <list>
         <item itemvalue="Node.js.submissionValid.jsx" />
+        <item itemvalue="Node.js.submissionValid.jsx" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23726.96" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -88,6 +118,12 @@
       <workItem from="1699126411952" duration="6114000" />
       <workItem from="1700177735975" duration="6551000" />
       <workItem from="1700338965049" duration="5547000" />
+      <workItem from="1738005527594" duration="257000" />
+      <workItem from="1738100736587" duration="3000" />
+      <workItem from="1738381059870" duration="38000" />
+      <workItem from="1738435024483" duration="1175000" />
+      <workItem from="1738619006571" duration="1331000" />
+      <workItem from="1738992803311" duration="2134000" />
     </task>
     <task id="LOCAL-00001" summary="Added Dropdown for state selection">
       <option name="closed" value="true" />
