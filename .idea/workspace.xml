@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="20c62084-0d88-435b-a48f-2bb0c5a4d53f" name="Changes" comment="State dropdown saves to variable">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ClubForm/ClubForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClubForm/ClubForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CompanyForm/CompanyForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompanyForm/CompanyForm.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ContentUpload/ContentUpload.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ContentUpload/ContentUpload.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LabForm/LabForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/LabForm/LabForm.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

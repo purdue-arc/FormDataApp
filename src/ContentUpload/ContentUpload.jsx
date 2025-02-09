@@ -40,6 +40,14 @@ const FileUploadComponent = ({ color1 = "blue", color2 = "blue" }) => {
         }
     };
 
+    const handleRemoveFile = () => {
+        if (previewURL) {
+            URL.revokeObjectURL(previewURL);
+        }
+        setPreviewURL(null);
+        setFileType(null);
+    };
+
     return (
         <div>
             {/* Hidden file input */}
@@ -51,23 +59,43 @@ const FileUploadComponent = ({ color1 = "blue", color2 = "blue" }) => {
                 accept="image/*,video/*"
             />
 
-            {/* Button to open file explorer */}
-            <motion.button
-                type="button"
-                whileHover={{scale: 1.02}}
-                whileTap={{scale: 0.98}}
-                onClick={openFileExplorer}
-                style={{
-                    background: `linear-gradient(135deg, ${color1} 0%, ${color2} 100%)`,
-                    color: "white", // Set text color to white
-                    borderRadius: "8px", // Adjust for rounded edges
-                    padding: "10px 20px", // Add some padding for better appearance
-                    border: "none", // Remove default button border
-                    cursor: "pointer" // Ensure it's clickable
-                }}
-            >
-                Add Content
-            </motion.button>
+            <div style={{display: "flex", gap: "10px", alignItems: "center"}}>
+                <motion.button
+                    type="button"
+                    whileHover={{scale: 1.02}}
+                    whileTap={{scale: 0.98}}
+                    onClick={openFileExplorer}
+                    style={{
+                        background: `linear-gradient(135deg, ${color1} 0%, ${color2} 100%)`,
+                        color: "white",
+                        borderRadius: "8px",
+                        padding: "10px 20px",
+                        border: "none",
+                        cursor: "pointer"
+                    }}
+                >
+                    Add Content
+                </motion.button>
+
+                {previewURL && (
+                    <motion.button
+                        type="button"
+                        whileHover={{scale: 1.02}}
+                        whileTap={{scale: 0.98}}
+                        onClick={handleRemoveFile}
+                        style={{
+                            background: "red",
+                            color: "white",
+                            borderRadius: "8px",
+                            padding: "10px 20px",
+                            border: "none",
+                            cursor: "pointer"
+                        }}
+                    >
+                        Clear
+                    </motion.button>
+                )}
+            </div>
 
             {/* Preview Section */}
             {previewURL && fileType && (
