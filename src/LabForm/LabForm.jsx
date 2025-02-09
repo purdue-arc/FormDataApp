@@ -502,7 +502,7 @@ class LabForm extends React.Component {
                   </AnimatePresence>
                 </div>
                 <div className="content-upload">
-                  <FileUploadComponent/>
+                  <FileUploadComponent color="#6d28d9"/>
                 </div>
 
                 {/* Submit Button */}
