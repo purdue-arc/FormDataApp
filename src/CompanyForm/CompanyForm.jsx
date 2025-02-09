@@ -442,7 +442,7 @@ class CompanyForm extends React.Component {
 
                 <div className="company-form-section">
                   <h3 className="company-section-title">Upload Content</h3>
-                  <FileUploadComponent/>
+                  <FileUploadComponent color1="#16a34a" color2="#22c55e"/>
                 </div>
 
                 <div className="company-form-submit-wrapper">

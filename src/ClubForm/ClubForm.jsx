@@ -580,7 +580,7 @@ class ClubForm extends React.Component {
 
                 <div className="club-form-section">
                   <h3 className="club-section-title">Upload Content</h3>
-                  <FileUploadComponent/>
+                  <FileUploadComponent color1="#f97316" color2="#fb923c"/>
                 </div>
 
                 {/* Submit Button */}

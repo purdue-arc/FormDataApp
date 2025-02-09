@@ -576,7 +576,7 @@ class LabForm extends React.Component {
                   </AnimatePresence>
                 </div>
                 <div className="content-upload">
-                  <FileUploadComponent color="#6d28d9"/>
+                  <FileUploadComponent color1="#6d28d9" color2="#7c3aed"/>
                 </div>
 
                 {/* Submit Button */}
@@ -585,20 +585,11 @@ class LabForm extends React.Component {
                       type="submit"
                       className={`lab-form-submit ${this.state.isLoading ? 'loading' : ''}`}
                       disabled={this.state.isLoading}
-                      whileHover={{scale: 1.02}}
-                      whileTap={{scale: 0.98}}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                   >
                     {this.state.isLoading ? (
                         <span className="loading-text">
-                      <motion.span
-                          animate={{rotate: 360}}
-                          transition={{duration: 1, repeat: Infinity, ease: "linear"}}
-                          className="loading-icon"
-                      >
-                        ⭮
-                      </motion.span>
-                      Submitting...
-                    </span>
                           <motion.span
                               animate={{ rotate: 360 }}
                               transition={{ duration: 1, repeat: Infinity, ease: "linear" }}

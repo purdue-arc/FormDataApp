@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-const FileUploadComponent = ({ color = "blue" }) => {
+const FileUploadComponent = ({ color1 = "blue", color2 = "blue" }) => {
     const fileInputRef = useRef(null);
     const [previewURL, setPreviewURL] = useState(null);
     const [fileType, setFileType] = useState(null);
@@ -58,7 +58,7 @@ const FileUploadComponent = ({ color = "blue" }) => {
                 whileTap={{scale: 0.98}}
                 onClick={openFileExplorer}
                 style={{
-                    backgroundColor: color,
+                    background: `linear-gradient(135deg, ${color1} 0%, ${color2} 100%)`,
                     color: "white", // Set text color to white
                     borderRadius: "8px", // Adjust for rounded edges
                     padding: "10px 20px", // Add some padding for better appearance
