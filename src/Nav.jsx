@@ -34,7 +34,7 @@ const NavLinks = () => (
     </>
 );
 
-const Navbar = () => {
+const Navbar = ({ theme }) => {
     const [isOpen, setIsOpen] = useState(false);
     const { scrollY } = useScroll();
 
@@ -69,8 +69,10 @@ const Navbar = () => {
         ["0vh", "0.8vh"] // This controls the left position
     );
 
+    const themeClass = theme ? `navbar--${theme}` : '';
+
     return (
-        <div className="nav-wrapper">
+        <div className={`nav-wrapper ${themeClass}`}>
             <motion.div
                 className="navbar"
                 style={{

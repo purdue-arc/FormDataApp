@@ -18,7 +18,7 @@ function App() {
                     element={
                         <>
                             <FadeOverlay/>
-                            <Navbar />
+                            <Navbar theme="company" />
                             <CompanyForm />
                         </>
                     }
@@ -28,7 +28,7 @@ function App() {
                     element={
                         <>
                             <FadeOverlay/>
-                            <Navbar />
+                            <Navbar theme="club" />
                             <ClubForm />
                         </>
                     }
@@ -38,7 +38,7 @@ function App() {
                     element={
                         <>
                             <FadeOverlay/>
-                            <Navbar />
+                            <Navbar theme="lab" />
                             <LabForm />
                         </>
                     }

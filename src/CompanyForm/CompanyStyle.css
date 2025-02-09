@@ -157,7 +157,6 @@
     border-radius: 4px;
     cursor: pointer;
     position: relative;
-    margin-top: 0.25rem;
 }
 
 .company-form-checkbox:checked {

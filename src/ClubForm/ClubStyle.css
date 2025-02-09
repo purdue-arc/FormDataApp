@@ -154,29 +154,17 @@
 }
 
 .club-form-checkbox {
-    appearance: none;
     width: 1.25rem;
     height: 1.25rem;
     border: 2px solid #f97316;
     border-radius: 4px;
     cursor: pointer;
     position: relative;
-    margin-top: 0.25rem;
 }
 
 .club-form-checkbox:checked {
     background-color: #f97316;
     border-color: #f97316;
-}
-
-.club-form-checkbox:checked::after {
-    content: '✓';
-    position: absolute;
-    color: white;
-    font-size: 0.875rem;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 .checkbox-label {

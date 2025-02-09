@@ -2,7 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import {
     Search, Filter, Download, Building2, FlaskConical,
     Users, Calendar, PhoneCall, Mail, RefreshCw, AlertCircle, UsersIcon,
-    X
+    X, EyeClosed, Eye, 
+    Icon
 } from 'lucide-react';
 import result from "../dependentComponents/results";
 import './dashboard-styles.css';
@@ -250,6 +251,12 @@ export default function SubmissionsDashboard() {
         link.download = `rise_submissions_${new Date().toISOString().split('T')[0]}.csv`;
         link.click();
     };
+    
+    const [passwordVisible, setPasswordVisible] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
+    };
 
     if (!isAuthenticated) {
         return (
@@ -263,14 +270,27 @@ export default function SubmissionsDashboard() {
                     }}
                 >
                     <div className="form-group">
-                        <label htmlFor="username" className="form-label">Username:</label>
-                        <input type="text" id="username" name="username" className="form-input" required />
+                        <label htmlFor="username" className="form-label" >Username:</label>
+                        <input type="text" id="username" name="username" className="form-input" placeholder='username' required />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="password" className="form-label">Password:</label>
-                        <input type="password" id="password" name="password" className="form-input" required />
+                <div className="form-group">
+                    <label htmlFor="password" className="form-label">Password:</label>
+                    <div className="password-container">
+                        <input
+                            type={passwordVisible ? "text" : "password"}
+                            id="password"
+                            className="form-input"
+                            placeholder='password'
+                        />
+                        <span
+                            onClick={togglePasswordVisibility}
+                            className="eye-icon"
+                        >
+                            {passwordVisible ? <Eye strokeWidth="1px" size="20px"/>: <EyeClosed strokeWidth="1px" size="20px"/>}
+                        </span>
                     </div>
                     <button type="submit" className="btn">Login</button>
+                    </div>
                 </form>
             </div>
         );
