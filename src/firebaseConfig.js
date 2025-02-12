@@ -7,7 +7,7 @@ import { getAnalytics } from 'firebase/analytics';
 const firebaseConfig = {
     apiKey: "AIzaSyB-BSekH0apcYF4sAjUITcsAKPr4USBr_U",
     authDomain: "riseformdata.firebaseapp.com",
-    databaseURL: "https://riseformdata-default-rtdb.firebaseio.com",
+    databaseURL: "https://improvedformstorage.firebaseio.com",
     projectId: "riseformdata",
     storageBucket: "riseformdata.firebasestorage.app",
     messagingSenderId: "202062436177",

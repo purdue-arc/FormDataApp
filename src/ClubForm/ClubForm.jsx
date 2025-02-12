@@ -456,7 +456,7 @@ class ClubForm extends React.Component {
               {/* Form Header */}
               <div className="club-form-header">
                 <div className="club-header-content">
-                  <h2 className="club-form-title">RISE Purdue Club Sign-Up</h2>
+                  <h2 className="club-form-title">RISE Student Organization Sign-Up</h2>
                   <p className="club-form-subtitle">Join us at the upcoming RISE conference</p>
                 </div>
                 <div className="club-header-decoration"></div>

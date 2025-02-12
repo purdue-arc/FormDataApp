@@ -26,10 +26,10 @@ const NavLinks = () => (
             </a>
         </motion.p>
         <motion.p whileHover={{ scale: 1.02 }}>
-            <a href="viewer">
+            {/* <a href="viewer">
                 <Database size={18} />
                 View Data
-            </a>
+            </a> */}
         </motion.p>
     </>
 );
